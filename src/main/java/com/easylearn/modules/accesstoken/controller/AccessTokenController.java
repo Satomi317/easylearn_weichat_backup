@@ -20,4 +20,10 @@ public class AccessTokenController extends MvcComponent{
     public String getAccessToken(){
         return accessTokenService.getAccessToken();
     }
+
+    @ResponseBody
+    @RequestMapping("test")
+    public String test(){
+        return "test";
+    }
 }
