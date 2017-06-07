@@ -24,6 +24,6 @@ public class AccessTokenController extends MvcComponent{
     @ResponseBody
     @RequestMapping("test")
     public String test(){
-        return "test";
+        return "test1111";
     }
 }
