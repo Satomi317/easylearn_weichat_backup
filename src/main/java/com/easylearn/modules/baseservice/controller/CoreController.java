@@ -64,4 +64,13 @@ public class CoreController extends MvcComponent{
     public String creatMenu(){
         return coreService.createMenu();
     }
+
+    @RequestMapping("/getJsTicket")
+    @ResponseBody
+    public String getJsTicket(HttpServletRequest request){
+        String url = request.getParameter("url");
+        return coreService.getSignatureInfo(coreService.getNonceStr(),coreService.getJsTicket(),coreService.getTimeStamp(),url);
+    }
+
+
 }

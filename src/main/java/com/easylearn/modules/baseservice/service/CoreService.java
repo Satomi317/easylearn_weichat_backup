@@ -1,5 +1,6 @@
 package com.easylearn.modules.baseservice.service;
 
+import com.easylearn.comm.EncryptUtil;
 import com.easylearn.comm.MessageUtil;
 import com.easylearn.comm.MvcComponent;
 import com.easylearn.modules.accesstoken.service.AccessTokenService;
@@ -10,7 +11,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
-import javax.print.attribute.standard.Media;
 import javax.servlet.http.HttpServletRequest;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -24,6 +24,14 @@ import java.util.*;
 public class CoreService extends MvcComponent{
     @Autowired
     private AccessTokenService accessTokenService;
+
+
+
+    private static String jsapi_ticket = "";
+    private static Double jsapi_expires_in = 7200.0;
+    private static long jsapi_getTime = 0;
+    private static String nonce_str = "";
+    private static String timestamp = "";
 
     /**
      * 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
@@ -221,7 +229,85 @@ public class CoreService extends MvcComponent{
         return respMsg;
     }
 
+    /**
+     *
+     * <pre>
+     * 任务：
+     * 描述： 微信网页jsjdk使用的签名
+     * returnType：String
+     */
+    public  String getSignatureInfo(String noncestr, String jsapiTicket, String timestamp, String url) {
+        // noncestr（随机字符串）
+        // 有效的jsapi_ticket
+        // timestamp（时间戳）
+        // url（当前网页的URL，不包含#及其后面部分）
+        String str = "jsapi_ticket=" + jsapiTicket + "&noncestr=" + noncestr + "&timestamp=" + timestamp + "&url="
+                + url;
+        String sha1Signature = EncryptUtil.sha1Encode(str);
 
+        return "{\"signature\":\"" + sha1Signature + "\",\"noncestr\":\"" + noncestr + "\",\"timestamp\":\"" + timestamp+ "\",\"appId\":\"" + accessTokenService.appId
+                + "\"}";
+    }
+
+    /**
+     * 获取jsapi ticket
+     *
+     * @return String
+     */
+    public String getJsTicket(){
+        long now = new Date().getTime();
+        if ((now - jsapi_getTime) / 1000 >= (jsapi_expires_in - 2)) {
+            String accessToken = accessTokenService.getAccessToken();
+            logger.info("accessToken:"+accessToken);
+            String url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" + accessToken
+                    + "&type=jsapi";
+            String val = "";
+            try {
+                val = restTemplate.getForObject(url,String.class);
+            } catch (Exception e) {
+                logger.error("获取jsTicket失败"+e);
+            }
+            logger.info(val);
+            if ((Double)gson.fromJson(val, Map.class).get("errcode")==0) {
+                jsapi_ticket = (String)gson.fromJson(val,Map.class).get("ticket");
+                jsapi_expires_in = (Double) gson.fromJson(val,Map.class).get("expires_in");
+                jsapi_getTime = now;
+
+            } else {
+                jsapi_ticket = "";
+            }
+        }
+        return jsapi_ticket;
+    }
+
+    /**
+     *
+     * <pre>
+     * 任务：
+     * 描述： 生成一个20位的随机字符串 并且生成一个时间戳
+     * returnType：String
+     * </pre>
+     */
+    public  String getNonceStr() {
+        String str = "qwertyuioplkjhgfdsazxcvbnmMNBVCXZASDFGHJKLPOIUYTREWQ0123456789";
+        Random rond = new Random();
+        StringBuffer strbuf = new StringBuffer();
+
+        for (int i = 0; i < 20; i++) {
+            int number = rond.nextInt(str.length());
+            strbuf.append(str.charAt(number));
+        }
+        nonce_str = strbuf.toString();
+        timestamp = new Date().getTime() / 1000 + "";
+        return nonce_str;
+    }
+
+    /**
+     *返回时间戳
+     */
+    public  String getTimeStamp() {
+        return timestamp;
+    }
 
 
 
