@@ -21,7 +21,7 @@ public class AccessTokenService extends MvcComponent{
 
 
     @Value("${appId}")
-    private String appId;
+    public String appId;
 
     private static final long EXPIRES_IN = 7200L;
 
