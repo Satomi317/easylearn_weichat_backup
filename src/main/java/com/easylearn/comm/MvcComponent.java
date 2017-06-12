@@ -1,6 +1,7 @@
 package com.easylearn.comm;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.client.RestTemplate;
@@ -11,5 +12,5 @@ import org.springframework.web.client.RestTemplate;
 public class MvcComponent {
     protected Log logger = LogFactory.getLog(getClass());
     protected RestTemplate restTemplate = new RestTemplate();
-    protected Gson gson = new Gson();
+    protected Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 }

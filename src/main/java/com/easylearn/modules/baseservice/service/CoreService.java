@@ -6,6 +6,7 @@ import com.easylearn.comm.MvcComponent;
 import com.easylearn.modules.accesstoken.service.AccessTokenService;
 import com.easylearn.modules.baseservice.beans.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -25,6 +26,11 @@ public class CoreService extends MvcComponent{
     @Autowired
     private AccessTokenService accessTokenService;
 
+    @Value("${appId}")
+    public String appId;
+
+    @Value("${serverAddress}")
+    public String serverAddress;
 
 
     private static String jsapi_ticket = "";
@@ -140,7 +146,9 @@ public class CoreService extends MvcComponent{
         CommProperty learnTest = new CommProperty();
         learnTest.setName("学前测试");
         learnTest.setType("view");
-        learnTest.setUrl("https://www.baidu.com");
+        learnTest.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
+                + "&redirect_uri=http://" + serverAddress
+                + "/login&response_type=code&scope=snsapi_base&state=index#wechat_redirect/");
         //课程介绍
         CommProperty courseInfo = new CommProperty();
         courseInfo.setName("课程介绍");
