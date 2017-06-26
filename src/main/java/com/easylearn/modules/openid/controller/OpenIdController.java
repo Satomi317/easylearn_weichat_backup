@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -32,8 +33,23 @@ public class OpenIdController extends MvcComponent {
         logger.info("state:" + state);
         if (code != null && state != null) {
             String openId = openIdService.getOpenId(code);
+
+            //使用request对象的getSession()获取session，如果session不存在则创建一个
+            HttpSession session = request.getSession();
+            //将数据存储到session中
+            session.setAttribute("openId", openId);
+            //获取session的Id
+            String sessionId = session.getId();
+            //判断session是不是新创建的
+            if (session.isNew()) {
+                logger.info("session创建成功，session的id是："+sessionId);
+            }else {
+                logger.info("服务器已经存在该session了，session的id是："+sessionId);
+            }
+
+
             logger.info("OpenId is: " + openId);
-            if (openId.equals("")){
+            if (openId==null || openId == ""){
                 logger.error("openId获取出错");
                 return;
             } else {

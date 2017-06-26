@@ -148,7 +148,7 @@ public class CoreService extends MvcComponent{
         learnTest.setType("view");
         learnTest.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
                 + "&redirect_uri=http://" + serverAddress
-                + "/login&response_type=code&scope=snsapi_base&state=index#wechat_redirect/");
+                + "/login&response_type=code&scope=snsapi_userinfo&state=index#wechat_redirect/");
         //课程介绍
         CommProperty courseInfo = new CommProperty();
         courseInfo.setName("课程介绍");
