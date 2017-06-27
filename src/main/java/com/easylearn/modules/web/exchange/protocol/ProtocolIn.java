@@ -5,7 +5,16 @@ package com.easylearn.modules.web.exchange.protocol;
  */
 public class ProtocolIn {
     private String signature;
-    private int age;
+    private int exchangeDay;
+    private int exchangeItem;
+
+    public int getExchangeItem() {
+        return exchangeItem;
+    }
+
+    public void setExchangeItem(int exchangeItem) {
+        this.exchangeItem = exchangeItem;
+    }
 
     public String getSignature() {
         return signature;
@@ -15,11 +24,11 @@ public class ProtocolIn {
         this.signature = signature;
     }
 
-    public int getAge() {
-        return age;
+    public int getExchangeDay() {
+        return exchangeDay;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setExchangeDay(int exchangeDay) {
+        this.exchangeDay = exchangeDay;
     }
 }
