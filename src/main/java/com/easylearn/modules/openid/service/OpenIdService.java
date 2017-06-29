@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Map;
 
 /**
@@ -39,15 +41,17 @@ public class OpenIdService extends MvcComponent {
             if(userToken != ""){
                 String myurl = "https://api.weixin.qq.com/sns/userinfo?access_token="+userToken+"&openid="+openId+"&lang=zh_CN ";
                 String myresp = restTemplate.getForObject(myurl,String.class);
-                String nickname = (String)gson.fromJson(myresp, Map.class).get("nickname");
-                String headImg = (String)gson.fromJson(myresp, Map.class).get("headimgurl");
+                String encodeRes = new String(myresp.getBytes("ISO-8859-1"), "UTF-8");
+                String nickname = (String)gson.fromJson(encodeRes, Map.class).get("nickname");
+                String headImg = (String)gson.fromJson(encodeRes, Map.class).get("headimgurl");
                 userInfoDao.updateUserInfo(openId,nickname,headImg,userToken);
             }
-
         } catch (RestClientException e) {
            logger.error("发送请求获取openId失败"+e);
         } catch (JsonSyntaxException e) {
             logger.error("Json转换出错"+e);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
         return openId;
     }

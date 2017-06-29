@@ -8,6 +8,8 @@ import com.easylearn.modules.web.userInfo.domain.UserBonusDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by CZH on 2017/6/27.
  */
@@ -26,8 +28,8 @@ public class ExchangeService {
         int exchangeDay = protocolIn.getExchangeDay();
 
         //兑换前再次进行积分查询
-        UserBonusDomain bonusResult = userInfoDao.getUserBonus(openId);
-        int userBonus = bonusResult.getBonus();
+        List<UserBonusDomain> bonusResult = userInfoDao.getUserBonus(openId);
+        int userBonus = bonusResult.get(0).getBonus();
 
         if(userBonus < exchangeItem){
             protocolOut.setSuccess(false);

@@ -24,8 +24,16 @@ public class UserInfoService extends MvcComponent {
      * @return
      */
     public String getUserBonus(String openId){
-        UserBonusDomain result = userInfoDao.getUserBonus(openId);
-        return gson.toJson(result);
+        List<UserBonusDomain> result = userInfoDao.getUserBonus(openId);
+        if(result.size() == 0){
+            //新用户添加信息
+            userInfoDao.addUserBonus(openId);
+            UserBonusDomain domain = new UserBonusDomain();
+            domain.setOpenId(openId);
+            domain.setBonus(0);
+            result.add(domain);
+        }
+        return gson.toJson(result.get(0));
     }
 
     /**

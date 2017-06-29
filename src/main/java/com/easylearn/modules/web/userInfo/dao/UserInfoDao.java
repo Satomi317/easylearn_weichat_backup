@@ -21,11 +21,11 @@ public class UserInfoDao {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public UserBonusDomain getUserBonus(String openId){
+    public List<UserBonusDomain> getUserBonus(String openId){
         String sqlStr = "SELECT * FROM user_bonus WHERE OPENID=:OPENID";
         Map paraMap = new HashMap();
         paraMap.put("OPENID", openId);
-        UserBonusDomain result = namedParameterJdbcTemplate.queryForObject(sqlStr,paraMap,new BeanPropertyRowMapper<>(UserBonusDomain.class));
+        List<UserBonusDomain> result = namedParameterJdbcTemplate.query(sqlStr,paraMap,new BeanPropertyRowMapper<>(UserBonusDomain.class));
         return result;
     }
 
@@ -43,5 +43,12 @@ public class UserInfoDao {
         paraMap.put("OPENID", openId);
         UserInfoDomain result = namedParameterJdbcTemplate.queryForObject(sqlStr,paraMap,new BeanPropertyRowMapper<>(UserInfoDomain.class));
         return result;
+    }
+
+    public void addUserBonus(String openId){
+        Map paraMap = new HashMap();
+        paraMap.put("OPENID",openId);
+        String insertSql = "INSERT INTO user_bonus (OPENID) VALUES (:OPENID)";
+        namedParameterJdbcTemplate.update(insertSql,paraMap);
     }
 }
