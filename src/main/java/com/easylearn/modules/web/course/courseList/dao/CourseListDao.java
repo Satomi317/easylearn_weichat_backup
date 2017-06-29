@@ -1,6 +1,6 @@
-package com.easylearn.modules.web.courseList.dao;
+package com.easylearn.modules.web.course.courseList.dao;
 
-import com.easylearn.modules.web.courseList.domain.CourseListDomain;
+import com.easylearn.modules.web.course.courseList.domain.CourseListDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -21,7 +21,7 @@ public class CourseListDao {
     public List<CourseListDomain> getCourseList(int courseNum){
         Map paraMap = new HashMap();
         paraMap.put("COURSE_NUM", courseNum);
-        String querySql = "SELECT * FROM course_list WHERE COURSE_NUM=:COURSE_NUM ORDER BY CHAPTER_NUM";
+        String querySql = "SELECT * FROM course_chapter WHERE COURSE_NUM=:COURSE_NUM ORDER BY CHAPTER_NUM";
 //        List<CourseListDomain> result = namedParameterJdbcTemplate.queryForList(querySql,paraMap);
         List<CourseListDomain> result = namedParameterJdbcTemplate.query(querySql,paraMap,new BeanPropertyRowMapper<>(CourseListDomain.class));
         return result;

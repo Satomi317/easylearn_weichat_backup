@@ -153,7 +153,9 @@ public class CoreService extends MvcComponent{
         CommProperty courseInfo = new CommProperty();
         courseInfo.setName("课程介绍");
         courseInfo.setType("view");
-        courseInfo.setUrl("https://www.baidu.com");
+        courseInfo.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
+                + "&redirect_uri=http://" + serverAddress
+                + "/login&response_type=code&scope=snsapi_userinfo&state=introduction#wechat_redirect/");
         SubButton aboutEasyLearnSub = new SubButton();
         List<CommProperty> aboutEasyLearnList = new ArrayList<>();
         aboutEasyLearnList.add(learnTest);
@@ -166,17 +168,23 @@ public class CoreService extends MvcComponent{
         CommProperty audition = new CommProperty();
         audition.setName("试听");
         audition.setType("view");
-        audition.setUrl("https://www.baidu.com");
+        audition.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
+                + "&redirect_uri=http://" + serverAddress
+                + "/login&response_type=code&scope=snsapi_userinfo&state=introduction#wechat_redirect/");
         //零基础
         CommProperty zeroBase = new CommProperty();
         zeroBase.setName("零基础");
         zeroBase.setType("view");
-        zeroBase.setUrl("https://www.baidu.com");
+        zeroBase.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
+                + "&redirect_uri=http://" + serverAddress
+                + "/login&response_type=code&scope=snsapi_userinfo&state=introduction#wechat_redirect/");
         //微基础
         CommProperty BaseLearner = new CommProperty();
         BaseLearner.setName("微基础");
         BaseLearner.setType("view");
-        BaseLearner.setUrl("https://www.baidu.com");
+        BaseLearner.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
+                + "&redirect_uri=http://" + serverAddress
+                + "/login&response_type=code&scope=snsapi_userinfo&state=introduction#wechat_redirect/");
         SubButton quickListenSub = new SubButton();
         List<CommProperty> quickListenList = new ArrayList<>();
         quickListenList.add(audition);
@@ -190,7 +198,9 @@ public class CoreService extends MvcComponent{
         CommProperty learnerInfo = new CommProperty();
         learnerInfo.setName("学员信息");
         learnerInfo.setType("view");
-        learnerInfo.setUrl("https://www.baidu.com");
+        learnerInfo.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
+                + "&redirect_uri=http://" + serverAddress
+                + "/login&response_type=code&scope=snsapi_userinfo&state=userinfo#wechat_redirect/");
         //我的作业
         CommProperty myTask = new CommProperty();
         myTask.setName("我的作业");
@@ -200,7 +210,9 @@ public class CoreService extends MvcComponent{
         CommProperty creExchange = new CommProperty();
         creExchange.setName("积分兑换");
         creExchange.setType("view");
-        creExchange.setUrl("https://www.baidu.com");
+        creExchange.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
+                + "&redirect_uri=http://" + serverAddress
+                + "/login&response_type=code&scope=snsapi_userinfo&state=bonus#wechat_redirect/");
         //客服
         ClickMenuProperty customerService = new ClickMenuProperty();
         customerService.setType("click");

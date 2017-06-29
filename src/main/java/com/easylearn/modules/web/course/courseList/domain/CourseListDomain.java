@@ -1,4 +1,4 @@
-package com.easylearn.modules.web.courseList.domain;
+package com.easylearn.modules.web.course.courseList.domain;
 
 /**
  * Created by CZH on 2017/6/25.

@@ -1,7 +1,7 @@
-package com.easylearn.modules.web.courseList.controller;
+package com.easylearn.modules.web.course.courseList.controller;
 
 import com.easylearn.comm.MvcComponent;
-import com.easylearn.modules.web.courseList.service.CourseListService;
+import com.easylearn.modules.web.course.courseList.service.CourseListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +29,21 @@ public class CourseListController extends MvcComponent {
         try {
             int courseNum = Integer.parseInt(courseNumParm);
             return courseListService.getCourseList(courseNum);
+        }catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    @RequestMapping("/getPreviousChapter")
+    @ResponseBody
+    public String getPreviousChapter(HttpServletRequest request){
+        String courseNumParm = request.getParameter("courseNum");
+        String chapterNumParm = request.getParameter("chapterNum");
+        try {
+            int courseNum = Integer.parseInt(courseNumParm);
+            int chapterNum = Integer.parseInt(chapterNumParm);
+            return courseListService.getPreviousChapter(courseNum,chapterNum);
         }catch (Exception e){
             e.printStackTrace();
             return "";

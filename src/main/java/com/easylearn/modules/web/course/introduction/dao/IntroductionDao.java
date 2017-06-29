@@ -1,10 +1,10 @@
-package com.easylearn.modules.web.introduction.dao;
+package com.easylearn.modules.web.course.introduction.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import com.easylearn.modules.web.introduction.domain.CourseIntroductionDomain;
+import com.easylearn.modules.web.course.introduction.domain.CourseIntroductionDomain;
 
 import java.util.HashMap;
 import java.util.List;

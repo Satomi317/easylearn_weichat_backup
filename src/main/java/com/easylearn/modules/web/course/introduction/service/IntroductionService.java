@@ -1,12 +1,11 @@
-package com.easylearn.modules.web.introduction.service;
+package com.easylearn.modules.web.course.introduction.service;
 
 import com.easylearn.comm.MvcComponent;
-import com.easylearn.modules.web.introduction.dao.IntroductionDao;
-import com.easylearn.modules.web.introduction.domain.CourseIntroductionDomain;
+import com.easylearn.modules.web.course.introduction.dao.IntroductionDao;
+import com.easylearn.modules.web.course.introduction.domain.CourseIntroductionDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

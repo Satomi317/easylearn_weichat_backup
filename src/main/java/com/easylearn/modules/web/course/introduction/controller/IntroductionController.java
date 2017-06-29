@@ -1,7 +1,7 @@
-package com.easylearn.modules.web.introduction.controller;
+package com.easylearn.modules.web.course.introduction.controller;
 
 import com.easylearn.comm.MvcComponent;
-import com.easylearn.modules.web.introduction.service.IntroductionService;
+import com.easylearn.modules.web.course.introduction.service.IntroductionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -24,7 +24,7 @@ public class UserInfoController extends MvcComponent {
     public String getUserBonus(HttpServletRequest request){
         HttpSession session = request.getSession();
         String openId = (String) session.getAttribute("openId");
-        openId = "oJGSo04cMyHzXwpvnwrjcMLJ0Ky8";
+//        openId = "oJGSo04cMyHzXwpvnwrjcMLJ0Ky8";
         if(openId != null && openId != ""){
             return userInfoService.getUserBonus(openId);
         }else{
@@ -36,7 +36,7 @@ public class UserInfoController extends MvcComponent {
     public String getUserCourse(HttpServletRequest request){
         HttpSession session = request.getSession();
         String openId = (String) session.getAttribute("openId");
-        openId = "oJGSo04cMyHzXwpvnwrjcMLJ0Ky8";
+//        openId = "oJGSo04cMyHzXwpvnwrjcMLJ0Ky8";
         if(openId != null && openId != ""){
             return userInfoService.getUserCourse(openId);
         }else{
@@ -49,7 +49,7 @@ public class UserInfoController extends MvcComponent {
     public String getUserInfo(HttpServletRequest request){
         HttpSession session = request.getSession();
         String openId = (String) session.getAttribute("openId");
-        openId = "oJGSo04cMyHzXwpvnwrjcMLJ0Ky8";
+//        openId = "oJGSo04cMyHzXwpvnwrjcMLJ0Ky8";
         if(openId != null && openId != ""){
             return userInfoService.getUserInfo(openId);
         }else{

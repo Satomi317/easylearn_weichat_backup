@@ -24,6 +24,18 @@ public class OpenIdController extends MvcComponent {
     @Value("${index}")
     public String index;
 
+    @Value("${pretest}")
+    public String pretest;
+
+    @Value("${userinfo}")
+    public String userinfo;
+
+    @Value("${bonus}")
+    public String bonus;
+
+    @Value("${introduction}")
+    public String introduction;
+
     @RequestMapping("/login")
     @ResponseBody
     public void getOpenId(HttpServletRequest request, HttpServletResponse response)throws IOException{
@@ -56,6 +68,19 @@ public class OpenIdController extends MvcComponent {
                 switch (state){
                     case "index":
                         response.sendRedirect(index+openId);
+                        break;
+                    case "pretest":
+                        response.sendRedirect(pretest+openId);
+                        break;
+                    case "userinfo":
+                        response.sendRedirect(userinfo+openId);
+                        break;
+                    case "bonus":
+                        response.sendRedirect(bonus+openId);
+                        break;
+                    case "introduction":
+                        response.sendRedirect(introduction+openId);
+                        break;
                 }
             }
         } else {

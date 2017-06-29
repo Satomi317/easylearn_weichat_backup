@@ -1,6 +1,4 @@
-package com.easylearn.modules.web.introduction.domain;
-
-import java.util.Date;
+package com.easylearn.modules.web.course.introduction.domain;
 
 /**
  * Created by CZH on 2017/6/19.
