@@ -148,7 +148,7 @@ public class CoreService extends MvcComponent{
         learnTest.setType("view");
         learnTest.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
                 + "&redirect_uri=http://" + serverAddress
-                + "/login&response_type=code&scope=snsapi_userinfo&state=index#wechat_redirect/");
+                + "/login&response_type=code&scope=snsapi_userinfo&state=pretest#wechat_redirect/");
         //课程介绍
         CommProperty courseInfo = new CommProperty();
         courseInfo.setName("课程介绍");
@@ -205,7 +205,9 @@ public class CoreService extends MvcComponent{
         CommProperty myTask = new CommProperty();
         myTask.setName("我的作业");
         myTask.setType("view");
-        myTask.setUrl("https://www.baidu.com");
+        myTask.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
+                + "&redirect_uri=http://" + serverAddress
+                + "/login&response_type=code&scope=snsapi_userinfo&state=homework#wechat_redirect/");
         //积分兑换
         CommProperty creExchange = new CommProperty();
         creExchange.setName("积分兑换");
@@ -265,7 +267,7 @@ public class CoreService extends MvcComponent{
                 + url;
         String sha1Signature = EncryptUtil.sha1Encode(str);
 
-        return "{\"signature\":\"" + sha1Signature + "\",\"noncestr\":\"" + noncestr + "\",\"timestamp\":\"" + timestamp+ "\",\"appId\":\"" + accessTokenService.appId
+        return "{\"signature\":\"" + sha1Signature + "\",\"nonceStr\":\"" + noncestr + "\",\"timestamp\":\"" + timestamp+ "\",\"appId\":\"" + accessTokenService.appId
                 + "\"}";
     }
 

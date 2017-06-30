@@ -43,7 +43,6 @@ public class ExchangeController extends MvcComponent {
         //从session获取用户的openId
         HttpSession session = request.getSession();
         String openId = (String) session.getAttribute("openId");
-        openId = "oJGSo04cMyHzXwpvnwrjcMLJ0Ky8";
 
         if(openId != null && openId != ""){
             result = exchangeService.doExchange(protocolIn,openId);
