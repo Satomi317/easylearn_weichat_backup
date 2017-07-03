@@ -82,6 +82,7 @@ public class CoreService extends MvcComponent{
      * 按照请求中的msgType来处理消息
     */
     public String processRequest(HttpServletRequest request){
+        String accessToken = accessTokenService.getAccessToken();
         logger.info("processRequest");
         String respMessage = null;
         // 默认返回的文本消息内容
@@ -111,9 +112,27 @@ public class CoreService extends MvcComponent{
                 logger.info("eventType:"+eventType);
                 //订阅事件
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-                    String Content = "Hello~亲爱的小伙伴，欢迎加入说乎~请先进行<a href=\"http://532c4b12.ngrok.io/#/pretest?openid=/\">"+"学前测试</a>";
-                    TextMessage textMessage = createTextMessage(openId,toUserName,Content);
-                    respMessage = MessageUtil.textMessageToXml(textMessage);
+                    //text message
+                    String textContent = "Hello~亲爱的小伙伴，欢迎加入说乎~请先进行<a href=\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
+                            + "&redirect_uri=http://" + serverAddress
+                            + "/login&response_type=code&scope=snsapi_userinfo&state=pretest#wechat_redirect\">"+"学前测试</a>";
+                    TextSubContent content = new TextSubContent();
+                    content.setContent(textContent);
+                    TextSubscribe textSubscribe = new TextSubscribe();
+                    textSubscribe.setMsgtype("text");
+                    textSubscribe.setTouser(openId);
+                    textSubscribe.setText(content);
+                    //http entiy
+                    HttpHeaders headers = new HttpHeaders();
+                    MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
+                    headers.setContentType(type);
+                    headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+                    HttpEntity<String> formEntity = new HttpEntity<String>(gson.toJson(textSubscribe), headers);
+                    String respFormWx = restTemplate.postForObject("https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token="+accessToken,formEntity,String.class);
+                    logger.info("客服消息回复为："+respFormWx);
+                    //newsMessage
+                    NewsMessage newsMessage = createNewsMessage(openId,toUserName,"http://justtalk.oss-cn-shanghai.aliyuncs.com/image/%E7%9F%B3%E5%8E%9F.jpg","测试","www.baidu.com","哈哈");
+                    respMessage = MessageUtil.newsMessageToXml(newsMessage);
                 }
                 //点击事件
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)){
