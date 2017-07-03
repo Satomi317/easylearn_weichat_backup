@@ -111,7 +111,7 @@ public class CoreService extends MvcComponent{
                 logger.info("eventType:"+eventType);
                 //订阅事件
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-                    String Content = "Hello~亲爱的小伙伴，欢迎加入说乎~请先进行<a href=\"https://www.baidu.com/\">"+"学前测试</a>";
+                    String Content = "Hello~亲爱的小伙伴，欢迎加入说乎~请先进行<a href=\"http://532c4b12.ngrok.io/#/pretest?openid=/\">"+"学前测试</a>";
                     TextMessage textMessage = createTextMessage(openId,toUserName,Content);
                     respMessage = MessageUtil.textMessageToXml(textMessage);
                 }
@@ -120,7 +120,7 @@ public class CoreService extends MvcComponent{
                     String eventKey = requestMap.get("EventKey");
                     logger.info("eventKey:"+eventKey);
                     if (eventKey.equals("customerService")){
-                        String content = "亲，有问题请邮件说乎客服：liuyiming@quyiyuan.com";
+                        String content = "亲，有问题请邮件说乎客服：liuyiming@shuobaba.com";
                         TextMessage textMessage = createTextMessage(openId,toUserName,content);
                         respMessage = MessageUtil.textMessageToXml(textMessage);
                     }
@@ -148,7 +148,7 @@ public class CoreService extends MvcComponent{
         learnTest.setType("view");
         learnTest.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
                 + "&redirect_uri=http://" + serverAddress
-                + "/login&response_type=code&scope=snsapi_userinfo&state=index#wechat_redirect/");
+                + "/login&response_type=code&scope=snsapi_userinfo&state=pretest#wechat_redirect/");
         //课程介绍
         CommProperty courseInfo = new CommProperty();
         courseInfo.setName("课程介绍");
@@ -205,7 +205,9 @@ public class CoreService extends MvcComponent{
         CommProperty myTask = new CommProperty();
         myTask.setName("我的作业");
         myTask.setType("view");
-        myTask.setUrl("https://www.baidu.com");
+        myTask.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
+                + "&redirect_uri=http://" + serverAddress
+                + "/login&response_type=code&scope=snsapi_userinfo&state=homework#wechat_redirect/");
         //积分兑换
         CommProperty creExchange = new CommProperty();
         creExchange.setName("积分兑换");
@@ -265,7 +267,7 @@ public class CoreService extends MvcComponent{
                 + url;
         String sha1Signature = EncryptUtil.sha1Encode(str);
 
-        return "{\"signature\":\"" + sha1Signature + "\",\"noncestr\":\"" + noncestr + "\",\"timestamp\":\"" + timestamp+ "\",\"appId\":\"" + accessTokenService.appId
+        return "{\"signature\":\"" + sha1Signature + "\",\"nonceStr\":\"" + noncestr + "\",\"timestamp\":\"" + timestamp+ "\",\"appId\":\"" + accessTokenService.appId
                 + "\"}";
     }
 

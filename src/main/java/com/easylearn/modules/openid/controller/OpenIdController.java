@@ -36,6 +36,9 @@ public class OpenIdController extends MvcComponent {
     @Value("${introduction}")
     public String introduction;
 
+    @Value("${homework}")
+    public String homework;
+
     @RequestMapping("/login")
     @ResponseBody
     public void getOpenId(HttpServletRequest request, HttpServletResponse response)throws IOException{
@@ -80,6 +83,9 @@ public class OpenIdController extends MvcComponent {
                         break;
                     case "introduction":
                         response.sendRedirect(introduction+openId);
+                        break;
+                    case "homework":
+                        response.sendRedirect(homework+openId);
                         break;
                 }
             }

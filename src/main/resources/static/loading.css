@@ -1,0 +1,44 @@
+.loading{
+	width: 80px;
+	height: 80px;
+	position: relative;
+	margin: -40px auto;
+	top: 50%;
+}
+.loading .loadingRate{
+	font-size: 22px;
+	width: 100%;
+	text-align: center;
+	height: 40px;
+	line-height: 20px;
+	color:#0062e0;
+	position: absolute;
+	top:100%;
+	padding-top: 20px;
+}
+
+.loading .ball1,.ball2{
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background-color: #0062e0;
+	left: 0;
+	top: 0;
+	position: absolute;
+	opacity: 0.6
+}
+
+.ball1{
+	-webkit-animation :bounce 1s infinite ease-in-out;
+}
+.ball2{
+	-webkit-animation :bounce 1s infinite ease-in-out 0.5s;
+}
+@-webkit-keyframes bounce{
+	0%,100%{
+		transform: scale(0);
+	}
+	50%{
+		transform: scale(1);
+	}
+}
