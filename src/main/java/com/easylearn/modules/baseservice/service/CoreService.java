@@ -382,7 +382,7 @@ public class CoreService extends MvcComponent{
         //Article
         Article article = new Article();
         article.setDescription(description);
-        article.setPicUrl(picUrl);
+        article.setPicurl(picUrl);
         article.setTitle(title);
         article.setUrl(url);
         List<Article> list = new ArrayList<>();
@@ -392,6 +392,24 @@ public class CoreService extends MvcComponent{
         return newsMessage;
     }
 
+    /**
+     * 调用客服接口推送图文消息
+     */
+    public String pushNewsMessageByCustomer(String openId,NewsContent newsContent){
+        String accessToken = accessTokenService.getAccessToken();
+        NewsSubscribe newsSubscribe = new NewsSubscribe();
+        newsSubscribe.setMsgtype("news");
+        newsSubscribe.setTouser(openId);
+        newsSubscribe.setNews(newsContent);
+        //调用客服接口发送图文消息
+        HttpHeaders headers = new HttpHeaders();
+        MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
+        headers.setContentType(type);
+        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+        HttpEntity<String> formEntity = new HttpEntity<String>(gson.toJson(newsSubscribe), headers);
+        String resp = restTemplate.postForObject("https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token="+accessToken,formEntity,String.class);
+        return resp;
+    }
 
 
     /**
