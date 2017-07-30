@@ -25,7 +25,7 @@ public class CourseListController extends MvcComponent {
     public String getCourseList(HttpServletRequest request){
         HttpSession session = request.getSession();
         String openId = (String) session.getAttribute("openId");
-        openId = "oJGSo04cMyHzXwpvnwrjcMLJ0Ky8";
+        //openId = "oJGSo04cMyHzXwpvnwrjcMLJ0Ky8";
         logger.info("openId from session:"+openId);
         String courseNumParm = request.getParameter("courseNum");
         try {
