@@ -1,9 +1,9 @@
-package com.easylearn.modules.web.course.courseList.domain;
+package com.easylearn.test.domain;
 
 /**
- * Created by CZH on 2017/6/25.
+ * Created by czh on 2017/7/29.
  */
-public class CourseListDomain {
+public class CourseChapterDomain {
 
     private int chapterNum;
     private String chapterTitle;
@@ -32,4 +32,5 @@ public class CourseListDomain {
     public void setChapterTitle(String chapterTitle) {
         this.chapterTitle = chapterTitle;
     }
+
 }
