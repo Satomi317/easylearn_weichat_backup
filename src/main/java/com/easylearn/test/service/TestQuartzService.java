@@ -4,7 +4,12 @@ import com.easylearn.comm.MvcComponent;
 import com.easylearn.modules.baseservice.beans.Article;
 import com.easylearn.modules.baseservice.beans.NewsContent;
 import com.easylearn.modules.baseservice.service.CoreService;
+import com.easylearn.test.Dao.CourseChapterDao;
+import com.easylearn.test.Dao.UserCourseDao;
+import com.easylearn.test.domain.CourseChapterDomain;
+import com.easylearn.test.domain.UserCourseDomain;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -18,8 +23,18 @@ import java.util.List;
 @Service
 @EnableScheduling
 public class TestQuartzService extends MvcComponent{
+
+    @Value("${serverAddress}")
+    public String serverAddress;
+
     @Autowired
     private CoreService coreService;
+
+    @Autowired
+    private CourseChapterDao courseChapterDao;
+
+    @Autowired
+    private UserCourseDao userCourseDao;
 
 //    public String TestQuartzService(){
 //        SchedulerFactory schedulerFactory = new StdSchedulerFactory();
@@ -43,21 +58,99 @@ public class TestQuartzService extends MvcComponent{
 //        }
 //    }
 
-    @Scheduled(cron = "0 06 16 ? * *")
+    @Scheduled(cron = "0 23 23 ? * *")
     public void cronJob() {
         logger.info("开始执行定时任务");
-        //测试推送图文消息
-        String openId = "oGK1Zw7n-9m1YxeFgVvfwdCFfDb8";
-        NewsContent newsContent = new NewsContent();
-        List<Article> articles = new ArrayList<>();
+
+        String curTime = Long.toString(System.currentTimeMillis());
+
+        //推送零基础课程
+        List<UserCourseDomain> zeroBaseUsers = userCourseDao.getAllZeroBaseUser(curTime);
+        for(UserCourseDomain user:zeroBaseUsers){
+            //推送的图文消息
+            NewsContent newsContent = new NewsContent();
+            List<Article> articles = new ArrayList<>();
+
+            Article article = createArticle(user);
+
+            articles.add(article);
+            newsContent.setArticles(articles);
+            String resp = coreService.pushNewsMessageByCustomer(user.getOpenId(),newsContent);
+            logger.info("执行定时器推送零基础课程,结果为："+resp);
+            userCourseDao.updatePushNumber(user.getOpenId(),"0",curTime);
+        }
+
+        //推送微基础课程
+        List<UserCourseDomain> tinyBaseUsers = userCourseDao.getAllTinyBaseUser(curTime);
+        for(UserCourseDomain user:tinyBaseUsers){
+            //推送的图文消息
+            NewsContent newsContent = new NewsContent();
+            List<Article> articles = new ArrayList<>();
+
+            Article article = createArticle(user);
+
+            articles.add(article);
+            newsContent.setArticles(articles);
+            String resp = coreService.pushNewsMessageByCustomer(user.getOpenId(),newsContent);
+            logger.info("执行定时器推送微基础课程,结果为："+resp);
+            userCourseDao.updatePushNumber(user.getOpenId(),"1",curTime);
+        }
+
+        //推送试听课程
+        List<UserCourseDomain> demoUsers = userCourseDao.getAllDemoUser();
+        for(UserCourseDomain user:demoUsers){
+            //推送的图文消息
+            NewsContent newsContent = new NewsContent();
+            List<Article> articles = new ArrayList<>();
+
+            Article article = createArticle(user);
+
+            articles.add(article);
+            newsContent.setArticles(articles);
+            String resp = coreService.pushNewsMessageByCustomer(user.getOpenId(),newsContent);
+            logger.info("执行定时器推送试听课程,结果为："+resp);
+            //更新用户的推送记录
+            userCourseDao.updateDemoPushNumber(user.getOpenId(),1);
+        }
+
+    }
+
+    /**
+     * 生产图文消息
+     * @return
+     */
+    public Article createArticle(UserCourseDomain userInfo){
         Article article = new Article();
-        article.setPicurl("http://justtalk.oss-cn-shanghai.aliyuncs.com/image/%E7%9F%B3%E5%8E%9F.jpg");
-        article.setUrl("www.baidu.com");
-        article.setTitle("定时器推送测试");
-        article.setDescription("定时器推送成功");
-        articles.add(article);
-        newsContent.setArticles(articles);
-        String resp = coreService.pushNewsMessageByCustomer(openId,newsContent);
-        logger.info("执行定时器推送图文消息,结果为："+resp);
+
+        //推送次数
+        int pushNumber = userInfo.getPushNumber();
+        //课程类型
+        String courseType = userInfo.getCourseType();
+        int courseNumber = 0;
+        if(courseType.equals("0")){
+            //零基础
+            courseNumber = 3;
+        }else if(courseType.equals("1")){
+            //微基础
+            courseNumber = 4;
+        }else if(courseType.equals("4")){
+            //试听课
+            courseNumber = 5;
+        }
+
+        //获取要推送的课程
+        List<CourseChapterDomain> courseInfo = courseChapterDao.getPushCourse(pushNumber,courseNumber);
+        if(courseInfo.size() != 0){
+            String url = "http://" + serverAddress + "/#/chapter/" + courseInfo.get(0).getChapterNum() + "/openId/" + userInfo.getOpenId();
+            article.setPicurl("http://justtalk.oss-cn-shanghai.aliyuncs.com/image/%E7%9F%B3%E5%8E%9F.jpg");
+            article.setUrl(url);
+            article.setTitle(courseInfo.get(0).getChapterTitle());
+            article.setDescription("快来点击学习今天的课程吧！");
+        }else{
+            article.setPicurl("http://justtalk.oss-cn-shanghai.aliyuncs.com/image/%E7%9F%B3%E5%8E%9F.jpg");
+            article.setTitle("今日课程");
+            article.setDescription("暂时没找到你今天要学的课程，点击菜单进去看看吧。");
+        }
+        return article;
     }
 }

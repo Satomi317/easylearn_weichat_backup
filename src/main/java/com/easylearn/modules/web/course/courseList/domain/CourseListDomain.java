@@ -4,9 +4,10 @@ package com.easylearn.modules.web.course.courseList.domain;
  * Created by CZH on 2017/6/25.
  */
 public class CourseListDomain {
-    private int courseNum;
+
     private int chapterNum;
     private String chapterTitle;
+    private int courseNum;
 
     public int getCourseNum() {
         return courseNum;

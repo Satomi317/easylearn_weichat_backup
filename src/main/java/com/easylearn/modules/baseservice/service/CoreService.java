@@ -5,6 +5,8 @@ import com.easylearn.comm.MessageUtil;
 import com.easylearn.comm.MvcComponent;
 import com.easylearn.modules.accesstoken.service.AccessTokenService;
 import com.easylearn.modules.baseservice.beans.*;
+import com.easylearn.test.Dao.CourseChapterDao;
+import com.easylearn.test.Dao.UserCourseDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -25,6 +27,9 @@ import java.util.*;
 public class CoreService extends MvcComponent{
     @Autowired
     private AccessTokenService accessTokenService;
+
+    @Autowired
+    private CourseChapterDao courseChapterDao;
 
     @Value("${appId}")
     public String appId;
@@ -133,6 +138,13 @@ public class CoreService extends MvcComponent{
                     //newsMessage
                     NewsMessage newsMessage = createNewsMessage(openId,toUserName,"http://justtalk.oss-cn-shanghai.aliyuncs.com/image/%E7%9F%B3%E5%8E%9F.jpg","测试","www.baidu.com","哈哈");
                     respMessage = MessageUtil.newsMessageToXml(newsMessage);
+
+                    try{
+                        //为用户开启试听课程推送
+                        courseChapterDao.addDemoPush(openId);
+                    }catch (Exception e){
+                        logger.info("新关注用户添加试题课推送记录失败");
+                    }
                 }
                 //点击事件
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)){

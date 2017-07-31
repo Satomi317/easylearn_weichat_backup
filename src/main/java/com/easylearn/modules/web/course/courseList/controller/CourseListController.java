@@ -2,6 +2,7 @@ package com.easylearn.modules.web.course.courseList.controller;
 
 import com.easylearn.comm.MvcComponent;
 import com.easylearn.modules.web.course.courseList.service.CourseListService;
+import com.easylearn.test.domain.UserCourseDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +25,17 @@ public class CourseListController extends MvcComponent {
     public String getCourseList(HttpServletRequest request){
         HttpSession session = request.getSession();
         String openId = (String) session.getAttribute("openId");
+        //openId = "oJGSo04cMyHzXwpvnwrjcMLJ0Ky8";
         logger.info("openId from session:"+openId);
         String courseNumParm = request.getParameter("courseNum");
         try {
             int courseNum = Integer.parseInt(courseNumParm);
-            return courseListService.getCourseList(courseNum);
+            UserCourseDomain userCourseInfo = courseListService.getUserCourseInfo(openId,courseNum);
+            if(userCourseInfo == null){
+                return "{\"success\":false}";
+            }else{
+                return courseListService.getCourseList(courseNum,userCourseInfo.getPushNumber());
+            }
         }catch (Exception e){
             e.printStackTrace();
             return "";
@@ -38,12 +45,10 @@ public class CourseListController extends MvcComponent {
     @RequestMapping("/getPreviousChapter")
     @ResponseBody
     public String getPreviousChapter(HttpServletRequest request){
-        String courseNumParm = request.getParameter("courseNum");
         String chapterNumParm = request.getParameter("chapterNum");
         try {
-            int courseNum = Integer.parseInt(courseNumParm);
             int chapterNum = Integer.parseInt(chapterNumParm);
-            return courseListService.getPreviousChapter(courseNum,chapterNum);
+            return courseListService.getPreviousChapter(chapterNum);
         }catch (Exception e){
             e.printStackTrace();
             return "";

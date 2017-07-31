@@ -21,7 +21,25 @@ public class IntroductionService  extends MvcComponent {
      * @return
      */
     public String getAllCourseIntroduction(){
-        List<CourseIntroductionDomain> introductions = introductionDao.getCourseIntroduction();
+        List<CourseIntroductionDomain> introductions = introductionDao.getAllCourseIntroduction();
+        return gson.toJson(introductions);
+    }
+
+    /**
+     * 获取指定课程的介绍
+     * @return
+     */
+    public String getCourseIntroduction(String courseNum){
+        CourseIntroductionDomain introductions = introductionDao.getCourseIntroduction(courseNum);
+        return gson.toJson(introductions);
+    }
+
+    /**
+     * 获取指定课程的介绍
+     * @return
+     */
+    public String getCourseIntroductionByChapter(String chapterNum){
+        CourseIntroductionDomain introductions = introductionDao.getCourseIntroductionByChapter(chapterNum);
         return gson.toJson(introductions);
     }
 }
