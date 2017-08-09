@@ -15,7 +15,6 @@ public class EncryptUtil {
 
     /**
      * 共有的加密类
-     * 屈剑飞
      */
     protected static Logger logger = Logger.getLogger(MessageUtil.class.getClass());
     private static MessageDigest md = null;
@@ -25,8 +24,6 @@ public class EncryptUtil {
      * <pre>
      * 任务：
      * 描述：调用微信支付接口，生成package信息对于url转码
-     * 作者：屈剑飞
-     * 时间：2015年1月23日下午1:13:19
      * @param str
      * @return
      * returnType：String

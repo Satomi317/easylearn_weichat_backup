@@ -33,6 +33,12 @@ public class OpenIdController extends MvcComponent {
     @Value("${bonus}")
     public String bonus;
 
+    @Value("${zeroBase}")
+    public String zeroBase;
+
+    @Value("${tinyBase}")
+    public String tinyBase;
+
     @Value("${introduction}")
     public String introduction;
 
@@ -83,6 +89,12 @@ public class OpenIdController extends MvcComponent {
                         break;
                     case "introduction":
                         response.sendRedirect(introduction+openId);
+                        break;
+                    case "zeroBase":
+                        response.sendRedirect(zeroBase+openId);
+                        break;
+                    case "tinyBase":
+                        response.sendRedirect(tinyBase+openId);
                         break;
                     case "homework":
                         response.sendRedirect(homework+openId);

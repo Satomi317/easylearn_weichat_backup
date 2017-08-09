@@ -24854,6 +24854,13 @@ introduction ion-segment {
   padding-top: 8px !important;
 }
 
+introduction #buyBtn {
+  position: fixed;
+  bottom: 10px;
+  left: 5%;
+  width: 90%;
+}
+
 buy .scroll-content {
   background-color: #f8f8f8;
   display: -webkit-flex;
@@ -24890,6 +24897,7 @@ buy .price {
   color: #f53d3d;
   font-size: 2rem;
   font-weight: bold;
+  text-indent: 5rem;
 }
 
 buy .payBtn {

@@ -58,7 +58,7 @@ public class TestQuartzService extends MvcComponent{
 //        }
 //    }
 
-    @Scheduled(cron = "0 23 23 ? * *")
+    @Scheduled(cron = "0 29 23 ? * *")
     public void cronJob() {
         logger.info("开始执行定时任务");
 

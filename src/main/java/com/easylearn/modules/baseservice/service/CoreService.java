@@ -195,30 +195,22 @@ public class CoreService extends MvcComponent{
         aboutEasyLearnSub.setSub_button(aboutEasyLearnList);
 
         //快速听课子菜单
-        //试听
-        CommProperty audition = new CommProperty();
-        audition.setName("试听");
-        audition.setType("view");
-        audition.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
-                + "&redirect_uri=http://" + serverAddress
-                + "/login&response_type=code&scope=snsapi_userinfo&state=introduction#wechat_redirect/");
         //零基础
         CommProperty zeroBase = new CommProperty();
         zeroBase.setName("零基础");
         zeroBase.setType("view");
         zeroBase.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
                 + "&redirect_uri=http://" + serverAddress
-                + "/login&response_type=code&scope=snsapi_userinfo&state=introduction#wechat_redirect/");
+                + "/login&response_type=code&scope=snsapi_userinfo&state=zeroBase#wechat_redirect/");
         //微基础
         CommProperty BaseLearner = new CommProperty();
         BaseLearner.setName("微基础");
         BaseLearner.setType("view");
         BaseLearner.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
                 + "&redirect_uri=http://" + serverAddress
-                + "/login&response_type=code&scope=snsapi_userinfo&state=introduction#wechat_redirect/");
+                + "/login&response_type=code&scope=snsapi_userinfo&state=tinyBase#wechat_redirect/");
         SubButton quickListenSub = new SubButton();
         List<CommProperty> quickListenList = new ArrayList<>();
-        quickListenList.add(audition);
         quickListenList.add(zeroBase);
         quickListenList.add(BaseLearner);
         quickListenSub.setName("快速听课");
