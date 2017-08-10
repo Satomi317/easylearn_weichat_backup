@@ -44,16 +44,16 @@ public class WXPayService  extends MvcComponent {
      * @return
      * @throws Exception
      */
-    public Map<String, String> fillRequestData(Map<String, String> reqData,String spbillCreateIp) throws Exception {
+    public Map<String, String> fillRequestData(Map<String, String> reqData,String spbillCreateIp,String totalFee,String openId) throws Exception {
 
         reqData.put("appid", "wxd595883477646872");
         reqData.put("mch_id", "1482302642");
         reqData.put("nonce_str", WXPayUtil.generateUUID());
         reqData.put("sign_type", WXPayConstants.MD5);
         reqData.put("body","说吧课程购买");
-        reqData.put("openid","ohN6SwHKoMqRpJclwSFwkdm0gZZw");
-        reqData.put("out_trade_no","dasdfcc");
-        reqData.put("total_fee","1");
+        reqData.put("openid",openId);
+        reqData.put("out_trade_no",WXPayUtil.generateUUID());
+        reqData.put("total_fee",totalFee);
         reqData.put("spbill_create_ip",spbillCreateIp);
         reqData.put("notify_url","http://www.shuobaba.com/payFeedback");
         reqData.put("trade_type","JSAPI");
@@ -71,9 +71,9 @@ public class WXPayService  extends MvcComponent {
      * @return
      * @throws Exception
      */
-    public String unifiedOrder(Map<String, String> reqData, String spbillCreateIp) throws Exception{
+    public String unifiedOrder(Map<String, String> reqData, String spbillCreateIp, String totalFee,String openId) throws Exception{
         //装填数据
-        reqData = fillRequestData(reqData,spbillCreateIp);
+        reqData = fillRequestData(reqData,spbillCreateIp,totalFee,openId);
         //Map转XML
         String xml = WXPayUtil.mapToXml(reqData);
         //向订单平台发送下单请求

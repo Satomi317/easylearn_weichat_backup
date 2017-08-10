@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import java.util.HashMap;
@@ -30,7 +31,10 @@ public class WxPayController extends MvcComponent {
         String  spbillCreateIp = request.getRemoteAddr();
         Map reqData = new HashMap<String, String>();
         try{
-            String prepayId = wxPaySerive.unifiedOrder(reqData,spbillCreateIp);
+            HttpSession session = request.getSession();
+            String openId = (String) session.getAttribute("openId");
+            String totalFee = request.getParameter("totalFee");
+            String prepayId = wxPaySerive.unifiedOrder(reqData,spbillCreateIp,totalFee,openId);
             logger.info("prepayId="+prepayId);
 
             String appId = request.getParameter("appId");
@@ -64,8 +68,6 @@ public class WxPayController extends MvcComponent {
     @RequestMapping("/payFeedback")
     @ResponseBody
     public String payFeedback(HttpServletRequest request, HttpServletResponse response){
-        String res = request.getParameter("res");
-        logger.info("enter pay feedback  res=" + res);
         return "<xml> <return_code><![CDATA[SUCCESS]]></return_code>";
     }
 
