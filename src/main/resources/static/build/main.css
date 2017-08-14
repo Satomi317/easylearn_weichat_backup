@@ -24893,6 +24893,10 @@ buy ion-input input {
   margin-bottom: 5px !important;
 }
 
+buy ion-list-header h2 {
+  color: #488aff;
+}
+
 buy .price {
   color: #f53d3d;
   font-size: 2rem;
@@ -25093,4 +25097,9 @@ userInfo .scroll-content {
   -webkit-justify-content: center !important;
   -ms-flex-pack: center !important;
   justify-content: center !important;
+}
+
+userInfo .expiryTime {
+  padding-left: 10px;
+  color: #f53d3d;
 }

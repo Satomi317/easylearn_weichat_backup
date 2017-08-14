@@ -8,15 +8,28 @@ public class UserCourseDomain {
     private String courseType;
     private long startTime;
     private long expiryTime;
-    private String courseName;
+    private int pushNumber;
+    private String courseTitle;
 
-    public String getCourseName() {
-        return courseName;
+
+    public int getPushNumber() {
+        return pushNumber;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setPushNumber(int pushNumber) {
+        this.pushNumber = pushNumber;
     }
+
+    public String getCourseTitle() {
+        return courseTitle;
+    }
+
+    public void setCourseTitle(String courseTitle) {
+        this.courseTitle = courseTitle;
+    }
+
+
+
 
     public String getOpenId() {
         return openId;

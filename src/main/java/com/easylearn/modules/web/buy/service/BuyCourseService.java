@@ -3,6 +3,7 @@ package com.easylearn.modules.web.buy.service;
 import com.easylearn.comm.MvcComponent;
 import com.easylearn.modules.web.buy.dao.BuyCourseDao;
 import com.easylearn.modules.web.buy.domain.CourseTypeDomain;
+import com.easylearn.modules.web.userInfo.domain.UserCourseDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +28,26 @@ public class BuyCourseService extends MvcComponent {
         }else{
 
             String courseType = courseInfo.get(0).getCourseType();
-            int courseDays = courseInfo.get(0).getCourseDays();
+            long courseDays = courseInfo.get(0).getCourseDays();
 
             long startTime = System.currentTimeMillis();
-            long expiryTime = startTime + courseDays * 24 * 60 * 60 *1000;
+            long addTime = courseDays * 24 * 60 * 60 *1000;
+            long expiryTime = startTime + addTime;
+
             try{
-                buyCourseDao.addBuyCourse(openId,courseType,Long.toString(startTime),Long.toString(expiryTime));
+                //先查询用户之前是否购买过课程
+                List<UserCourseDomain> res = buyCourseDao.getUserCourseByType(openId,courseType);
+                //未购买过课程
+                if(res.size() == 0){
+                    //插入购买信息
+                    buyCourseDao.addBuyCourse(openId,courseType,Long.toString(startTime),Long.toString(expiryTime));
+                }else{
+                    //更新购买信息，只更新购买时间和有效期，不改变推送次数
+                    buyCourseDao.updateBuyCourse(openId,courseType,Long.toString(startTime),Long.toString(expiryTime));
+                }
+
             }catch (Exception e){
-                logger.error("购买记录添加失败！");
+                logger.error("购买记录添加失败，数据库操作异常！");
                 return false;
             }
             return  true;
@@ -49,4 +62,31 @@ public class BuyCourseService extends MvcComponent {
     public String getAllSellCourse(String courseType){
         return gson.toJson(buyCourseDao.getAllBuyCourseDetail(courseType));
     }
+
+    /**
+     * 判断用户是否购买过课程
+     * @param openId
+     * @param courseType
+     * @return
+     */
+    public Boolean hasBuy(String openId, String courseType){
+        logger.info("courseType="+courseType);
+        List<UserCourseDomain> res = buyCourseDao.getUserCourseByType(openId,courseType);
+        //false代表未购买
+        if(res.size() == 0){
+            return false;
+        }else{
+            UserCourseDomain course = res.get(0);
+            long curTime = System.currentTimeMillis();
+            //如果购买的课程已过期，可再次购买。
+            if(curTime > course.getExpiryTime()){
+                return false;
+            }else{
+                //已购买且未过期
+                return true;
+            }
+
+        }
+    }
+
 }

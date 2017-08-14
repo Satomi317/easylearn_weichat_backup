@@ -7,24 +7,24 @@ public class CoursePartDomain {
     private long partNum;
     private String partTitle;
     private int chapterNum;
-    private String audioPath;
-    private String imgPath;
+//    private String audioPath;
+//    private String imgPath;
 
-    public String getImgPath() {
-        return imgPath;
-    }
-
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
-    }
-
-    public String getAudioPath() {
-        return audioPath;
-    }
-
-    public void setAudioPath(String audioPath) {
-        this.audioPath = audioPath;
-    }
+//    public String getImgPath() {
+//        return imgPath;
+//    }
+//
+//    public void setImgPath(String imgPath) {
+//        this.imgPath = imgPath;
+//    }
+//
+//    public String getAudioPath() {
+//        return audioPath;
+//    }
+//
+//    public void setAudioPath(String audioPath) {
+//        this.audioPath = audioPath;
+//    }
 
     public long getPartNum() {
         return partNum;

@@ -54,7 +54,7 @@ public class BuyCourseController extends MvcComponent {
                 result.setResult("");
             }
 
-            return "";
+            return gson.toJson(result);
         }catch (Exception e){
             e.printStackTrace();
             return "";
@@ -66,5 +66,40 @@ public class BuyCourseController extends MvcComponent {
     public String sellCourseList(HttpServletRequest request){
         String courseType = request.getParameter("courseType");
         return buyCourseService.getAllSellCourse(courseType);
+    }
+
+
+    /**
+     * 返回用户是否购买此类课程
+     * @param request
+     * @return
+     */
+    @RequestMapping("/hasBuy")
+    @ResponseBody
+    public String hasBuy(HttpServletRequest request){
+        ProtocolOut result = new ProtocolOut();
+        //购买课程的ID
+        String courseType = request.getParameter("courseType");
+
+        HttpSession session = request.getSession();
+        String openId = (String) session.getAttribute("openId");
+        if(openId != null && openId != ""){
+            if(buyCourseService.hasBuy(openId,courseType) == false){
+                result.setMessage("用户未购买该课程！");
+                result.setSuccess(true);
+                result.setResult("false");
+                logger.info("用户未购买该课程");
+            }else{
+                result.setMessage("用户已购买该课程！");
+                result.setSuccess(true);
+                result.setResult("true");
+                logger.info("用户已购买该课程");
+            }
+        }else{
+            result.setMessage("error:用户未登录,session信息不存在。");
+            result.setSuccess(false);
+            result.setResult("");
+        }
+        return gson.toJson(result);
     }
 }
