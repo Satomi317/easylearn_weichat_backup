@@ -87,13 +87,28 @@ public class BuyCourseDao {
         List<UserCourseDomain> result = namedParameterJdbcTemplate.query(querySql,paraMap,new BeanPropertyRowMapper<>(UserCourseDomain.class));
         return result;
     }
-//
-//    public List<UserCourseDomain> getUserCourseById(String openId, String courseId){
-//        Map paraMap = new HashMap();
-//        paraMap.put("ID",courseId);
-//        paraMap.put("OPENID",openId);
-//        String querySql = "SELECT * FROM user_course WHERE COURSE_TYPE=(SELECT course_type.COURSE_TYPE FROM course_type WHERE ID=:ID) AND OPENID=:OPENID";
-//        List<UserCourseDomain> result = namedParameterJdbcTemplate.query(querySql,paraMap,new BeanPropertyRowMapper<>(UserCourseDomain.class));
-//        return result;
-//    }
+
+    /**
+     * 用户购买课程，不再推送试听课
+     * @param openId
+     */
+    public void updateDemoCourse(String openId){
+        Map paraMap = new HashMap();
+        paraMap.put("OPENID",openId);
+        String updateSql = "UPDATE user_course SET PUSH_NUMBER=4 WHERE OPENID=:OPENID AND COURSE_TYPE=4";
+        namedParameterJdbcTemplate.update(updateSql,paraMap);
+    }
+
+    /**
+     * 获取用户已购买的全部课程
+     * @param openId
+     * @return
+     */
+    public List<UserCourseDomain> getUserAllCourse(String openId){
+        Map paraMap = new HashMap();
+        paraMap.put("OPENID",openId);
+        String querySql = "SELECT * FROM user_course WHERE  OPENID=:OPENID AND COURSE_TYPE <> 4";
+        List<UserCourseDomain> result = namedParameterJdbcTemplate.query(querySql,paraMap,new BeanPropertyRowMapper<>(UserCourseDomain.class));
+        return result;
+    }
 }

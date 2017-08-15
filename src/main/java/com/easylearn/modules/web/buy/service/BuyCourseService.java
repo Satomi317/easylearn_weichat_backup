@@ -41,6 +41,8 @@ public class BuyCourseService extends MvcComponent {
                 if(res.size() == 0){
                     //插入购买信息
                     buyCourseDao.addBuyCourse(openId,courseType,Long.toString(startTime),Long.toString(expiryTime));
+                    //停止向用户推送试听课
+                    buyCourseDao.updateDemoCourse(openId);
                 }else{
                     //更新购买信息，只更新购买时间和有效期，不改变推送次数
                     buyCourseDao.updateBuyCourse(openId,courseType,Long.toString(startTime),Long.toString(expiryTime));
