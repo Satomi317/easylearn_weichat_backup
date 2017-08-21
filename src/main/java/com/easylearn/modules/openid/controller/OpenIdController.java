@@ -91,10 +91,10 @@ public class OpenIdController extends MvcComponent {
                         response.sendRedirect(introduction+openId);
                         break;
                     case "zeroBase":
-                        response.sendRedirect(zeroBase+openId);
+                        response.sendRedirect(zeroBase);
                         break;
                     case "tinyBase":
-                        response.sendRedirect(tinyBase+openId);
+                        response.sendRedirect(tinyBase);
                         break;
                     case "homework":
                         response.sendRedirect(homework+openId);

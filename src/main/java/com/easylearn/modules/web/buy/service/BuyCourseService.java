@@ -3,10 +3,13 @@ package com.easylearn.modules.web.buy.service;
 import com.easylearn.comm.MvcComponent;
 import com.easylearn.modules.web.buy.dao.BuyCourseDao;
 import com.easylearn.modules.web.buy.domain.CourseTypeDomain;
+import com.easylearn.modules.web.exchange.domain.UserBonusDomain;
 import com.easylearn.modules.web.userInfo.domain.UserCourseDomain;
+import com.easylearn.modules.web.userInfo.domain.UserInfoDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.easylearn.modules.web.exchange.dao.ExchangeDao;
+import com.easylearn.modules.web.userInfo.dao.UserInfoDao;
 import java.util.List;
 
 /**
@@ -17,6 +20,10 @@ public class BuyCourseService extends MvcComponent {
 
     @Autowired
     private BuyCourseDao buyCourseDao;
+    @Autowired
+    private ExchangeDao exchangeDao;
+    @Autowired
+    private UserInfoDao userInfoDao;
 
     public Boolean buyCourse(String openId, String buyId){
 
@@ -91,4 +98,23 @@ public class BuyCourseService extends MvcComponent {
         }
     }
 
+
+    public void inviteSuccess(String openId, String inviteCode){
+        logger.info(inviteCode);
+        List<UserInfoDomain> result = userInfoDao.getUserInfoByMemberId(inviteCode);
+        logger.info(result);
+        if(result.size()>0){
+            UserInfoDomain inviter = result.get(0);
+            String inviterOpenId = inviter.getOpenid();
+            logger.info("inviterOpenId="+inviterOpenId);
+            //邀请者openId不能是是购课者自己
+            if(inviterOpenId != openId){
+                exchangeDao.updateInviterBonus(inviterOpenId);
+            }else{
+                logger.error("邀请码对应用户不能为自己");
+            }
+        }else{
+            logger.error("邀请码对应用户不存在");
+        }
+    }
 }

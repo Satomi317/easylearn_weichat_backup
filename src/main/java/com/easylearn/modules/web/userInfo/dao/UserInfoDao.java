@@ -51,4 +51,12 @@ public class UserInfoDao {
         String insertSql = "INSERT INTO user_bonus (OPENID) VALUES (:OPENID)";
         namedParameterJdbcTemplate.update(insertSql,paraMap);
     }
+
+    public List<UserInfoDomain> getUserInfoByMemberId(String memberId){
+        String sqlStr = "SELECT * FROM user_info WHERE MEMBER_ID=:MEMBER_ID";
+        Map paraMap = new HashMap();
+        paraMap.put("MEMBER_ID", memberId);
+        List<UserInfoDomain> result = namedParameterJdbcTemplate.query(sqlStr,paraMap,new BeanPropertyRowMapper<>(UserInfoDomain.class));
+        return result;
+    }
 }

@@ -7,7 +7,7 @@ public class CourseTypeDomain {
     private int id;
     private String courseType;
     private String courseName;
-    private int coursePrice;
+    private float coursePrice;
     private int courseDays;
 
     public int getId() {
@@ -34,11 +34,11 @@ public class CourseTypeDomain {
         this.courseName = courseName;
     }
 
-    public int getCoursePrice() {
+    public float getCoursePrice() {
         return coursePrice;
     }
 
-    public void setCoursePrice(int coursePrice) {
+    public void setCoursePrice(float coursePrice) {
         this.coursePrice = coursePrice;
     }
 

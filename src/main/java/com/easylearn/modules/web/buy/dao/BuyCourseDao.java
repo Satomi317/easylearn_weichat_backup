@@ -111,4 +111,6 @@ public class BuyCourseDao {
         List<UserCourseDomain> result = namedParameterJdbcTemplate.query(querySql,paraMap,new BeanPropertyRowMapper<>(UserCourseDomain.class));
         return result;
     }
+
+
 }

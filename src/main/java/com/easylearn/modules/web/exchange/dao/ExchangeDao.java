@@ -1,10 +1,13 @@
 package com.easylearn.modules.web.exchange.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.easylearn.modules.web.exchange.domain.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,4 +39,28 @@ public class ExchangeDao {
 //    public void updateExpiryTime(int day,String openId){
 //
 //    }
+
+    /**
+     * 获取用户当前积分信息
+     * @param openId
+     * @return
+     */
+    public List<UserBonusDomain> getUserBonus(String openId){
+        Map paraMap = new HashMap();
+        paraMap.put("OPENID",openId);
+        String querySql = "SELECT * FROM user_bonus WHERE OPENID=:OPENID";
+        List<UserBonusDomain> result = namedParameterJdbcTemplate.query(querySql,paraMap,new BeanPropertyRowMapper<>(UserBonusDomain.class));
+        return result;
+    }
+
+    /**
+     * 更新邀请者的积分
+     * @param openId
+     */
+    public void updateInviterBonus(String openId){
+        Map paraMap = new HashMap();
+        paraMap.put("OPENID",openId);
+        String updateSql = "UPDATE user_bonus SET BONUS=BONUS + 300 WHERE OPENID=:OPENID";
+        namedParameterJdbcTemplate.update(updateSql,paraMap);
+    }
 }

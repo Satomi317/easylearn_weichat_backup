@@ -42,6 +42,7 @@ public class BuyCourseController extends MvcComponent {
                     result.setMessage("购买成功");
                     result.setSuccess(true);
                     result.setResult("");
+                    buyCourseService.inviteSuccess(openId,inviteCode);
                 }else{
                     result.setMessage("购买失败");
                     result.setSuccess(false);
