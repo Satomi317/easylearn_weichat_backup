@@ -6,7 +6,6 @@ import com.easylearn.comm.MvcComponent;
 import com.easylearn.modules.accesstoken.service.AccessTokenService;
 import com.easylearn.modules.baseservice.beans.*;
 import com.easylearn.test.Dao.CourseChapterDao;
-import com.easylearn.test.Dao.UserCourseDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -191,7 +190,7 @@ public class CoreService extends MvcComponent{
         List<CommProperty> aboutEasyLearnList = new ArrayList<>();
         aboutEasyLearnList.add(learnTest);
         aboutEasyLearnList.add(courseInfo);
-        aboutEasyLearnSub.setName("关于说乎");
+        aboutEasyLearnSub.setName("关于说吧");
         aboutEasyLearnSub.setSub_button(aboutEasyLearnList);
 
         //快速听课子菜单
@@ -243,11 +242,18 @@ public class CoreService extends MvcComponent{
         customerService.setType("click");
         customerService.setName("客服");
         customerService.setKey("customerService");
+        //快速查词
+        CommProperty quickSearchWord = new CommProperty();
+        quickSearchWord.setType("view");
+        quickSearchWord.setName("快速查词");
+        quickSearchWord.setUrl("http://m.youdao.com");
+
         SubButton learnerCenterSub = new SubButton();
         List<CommProperty> learnerCenterList = new ArrayList<>();
         learnerCenterList.add(learnerInfo);
         learnerCenterList.add(myTask);
         learnerCenterList.add(creExchange);
+        learnerCenterList.add(quickSearchWord);
         learnerCenterList.add(customerService);
         learnerCenterSub.setName("学员中心");
         learnerCenterSub.setSub_button(learnerCenterList);
