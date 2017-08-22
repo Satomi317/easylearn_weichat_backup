@@ -105,7 +105,7 @@ public class CoreService extends MvcComponent{
                 String content = requestMap.get("Content");
                 if (!content.isEmpty()) {
                     // 自动回复文本消息
-                     String Content = "欢迎关注说乎~";
+                     String Content = "欢迎关注说乎,各位亲有使用疑问可以点击学员信息下的客服按钮哦~";
                      TextMessage textMessage = createTextMessage(openId,toUserName,Content);
                      respMessage = MessageUtil.textMessageToXml(textMessage);
                 }
@@ -134,9 +134,9 @@ public class CoreService extends MvcComponent{
                     HttpEntity<String> formEntity = new HttpEntity<String>(gson.toJson(textSubscribe), headers);
                     String respFormWx = restTemplate.postForObject("https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token="+accessToken,formEntity,String.class);
                     logger.info("客服消息回复为："+respFormWx);
-                    //newsMessage
-                    NewsMessage newsMessage = createNewsMessage(openId,toUserName,"http://justtalk.oss-cn-shanghai.aliyuncs.com/image/%E7%9F%B3%E5%8E%9F.jpg","测试","www.baidu.com","哈哈");
-                    respMessage = MessageUtil.newsMessageToXml(newsMessage);
+//                    //newsMessage
+//                    NewsMessage newsMessage = createNewsMessage(openId,toUserName,"http://justtalk.oss-cn-shanghai.aliyuncs.com/image/%E5%AE%A2%E6%9C%8D.jpg","测试","www.baidu.com","哈哈");
+//                    respMessage = MessageUtil.newsMessageToXml(newsMessage);
 
                     try{
                         //为用户开启试听课程推送
@@ -150,9 +150,11 @@ public class CoreService extends MvcComponent{
                     String eventKey = requestMap.get("EventKey");
                     logger.info("eventKey:"+eventKey);
                     if (eventKey.equals("customerService")){
-                        String content = "亲，有问题请邮件说乎客服：liuyiming@shuobaba.com";
-                        TextMessage textMessage = createTextMessage(openId,toUserName,content);
-                        respMessage = MessageUtil.textMessageToXml(textMessage);
+//                        String content = "亲，有问题请邮件说乎客服：liuyiming@shuobaba.com";
+//                        TextMessage textMessage = createTextMessage(openId,toUserName,content);
+//                        respMessage = MessageUtil.textMessageToXml(textMessage);
+                        NewsMessage customerNews = createNewsMessage(openId,toUserName,"http://justtalk.oss-cn-shanghai.aliyuncs.com/image/kefu.jpg","客服信息","http://justtalk.oss-cn-shanghai.aliyuncs.com/image/%E8%AF%B4%E5%90%A7%E5%AE%A2%E6%9C%8D%E5%9B%9E%E5%A4%8D.png","点击详情查看常见问题及答案哟~");
+                        respMessage = MessageUtil.newsMessageToXml(customerNews);
                     }
                 }
             }
