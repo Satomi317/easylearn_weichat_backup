@@ -8,9 +8,18 @@ import java.util.List;
  */
 public class ResultBean {
     private String partTitle;
-    private String imgUrl;
-    private String audioPath;
+//    private String imgUrl;
+//    private String audioPath;
     private List audioContent;
+    private List audioList;
+
+    public List getAudioList() {
+        return audioList;
+    }
+
+    public void setAudioList(List audioList) {
+        this.audioList = audioList;
+    }
 
     public String getPartTitle() {
         return partTitle;
@@ -20,21 +29,21 @@ public class ResultBean {
         this.partTitle = partTitle;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getAudioPath() {
-        return audioPath;
-    }
-
-    public void setAudioPath(String audioPath) {
-        this.audioPath = audioPath;
-    }
+//    public String getImgUrl() {
+//        return imgUrl;
+//    }
+//
+//    public void setImgUrl(String imgUrl) {
+//        this.imgUrl = imgUrl;
+//    }
+//
+//    public String getAudioPath() {
+//        return audioPath;
+//    }
+//
+//    public void setAudioPath(String audioPath) {
+//        this.audioPath = audioPath;
+//    }
 
     public List getAudioContent() {
         return audioContent;

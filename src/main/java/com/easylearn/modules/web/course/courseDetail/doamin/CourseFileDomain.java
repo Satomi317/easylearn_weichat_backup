@@ -7,8 +7,10 @@ public class CourseFileDomain {
     private long fileNum;
     private long partNum;
     private String fileType;
+    private String filePath;
     private String fileName;
     private String audioPath;
+
 
     public long getFileNum() {
         return fileNum;
@@ -48,5 +50,14 @@ public class CourseFileDomain {
 
     public void setAudioPath(String audioPath) {
         this.audioPath = audioPath;
+    }
+
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

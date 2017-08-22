@@ -31,11 +31,13 @@ public class CourseDetailService extends MvcComponent {
             long partNum = tempBean.getPartNum();
             ResultBean bean = new ResultBean();
             bean.setPartTitle(tempBean.getPartTitle());     //设置part的标题
-            bean.setImgUrl(tempBean.getImgPath());          //设置part的图片路径
-            bean.setAudioPath(tempBean.getAudioPath());     //设置part的语音路径
+//            bean.setImgUrl(tempBean.getImgPath());          //设置part的图片路径
+//            bean.setAudioPath(tempBean.getAudioPath());     //设置part的语音路径
 
             //组装单词语句内容
             List<ContentBean> contentList = new ArrayList<>();
+            List<ContentBean> audioList = new ArrayList<>();
+
             for(int j = 0; j < fileResult.size(); j++){
                 CourseFileDomain temp = fileResult.get(j);
                 if(temp.getPartNum() == partNum && "word".equals(temp.getFileType())){
@@ -43,10 +45,15 @@ public class CourseDetailService extends MvcComponent {
                     contentBean.setAudioSrc(temp.getAudioPath());   //设置语音路径
                     contentBean.setContent(temp.getFileName());     //设置听力内容
                     contentList.add(contentBean);
+                }else if(temp.getPartNum() == partNum && "audio".equals(temp.getFileType())){
+                    ContentBean contentBean = new ContentBean();
+                    contentBean.setAudioSrc(temp.getAudioPath());   //设置语音路径
+                    contentBean.setContent(temp.getFilePath());     //设置听力内容
+                    audioList.add(contentBean);
                 }
             }
             bean.setAudioContent(contentList);              //设置part的语句内容
-
+            bean.setAudioList(audioList);
             result.add(bean);       //添加至结果中
         }
 

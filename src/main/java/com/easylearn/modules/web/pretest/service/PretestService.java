@@ -23,10 +23,10 @@ public class PretestService extends MvcComponent{
      * @return
      */
     public String getQuestions(){
-        //获取题库中的40道题 0-23为词汇题  24-39为听力题
+        //获取题库中的40道题 0-17为词汇题  18-29为听力题
         List<PretestDomain> result = pretestDao.findQuestions();
-        ArrayList wordNums = RandomList(23,0,6);
-        ArrayList listenNums = RandomList(39,24,4);
+        ArrayList wordNums = RandomList(17,0,6);
+        ArrayList listenNums = RandomList(29,18,4);
         wordNums.addAll(listenNums);
 
         List<PretestDomain> questions = new ArrayList<>();

@@ -35,4 +35,13 @@ public class HomeworkDao {
         List<HomeworkDomain> result = namedParameterJdbcTemplate.query(querySql,paraMap,new BeanPropertyRowMapper<>(HomeworkDomain.class));
         return result;
     }
+
+    public List<HomeworkDomain> getUserRecord(String openId,long chapterNum){
+        Map paraMap = new HashMap();
+        paraMap.put("OPENID",openId);
+        paraMap.put("CHAPTERNUM",chapterNum);
+        String querySql = "SELECT * FROM user_homework WHERE OPENID=:OPENID AND CHAPTERNUM=:CHAPTERNUM";
+        List<HomeworkDomain> result = namedParameterJdbcTemplate.query(querySql,paraMap,new BeanPropertyRowMapper<>(HomeworkDomain.class));
+        return result;
+    }
 }

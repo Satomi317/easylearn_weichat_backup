@@ -30,7 +30,7 @@ public class UserInfoDao {
     }
 
     public List<UserCourseDomain> getUserCourse(String openId){
-        String sqlStr = "SELECT user_course.*,course_type.COURSE_NAME FROM user_course JOIN course_type ON user_course.COURSE_TYPE = course_type.COURSE_TYPE WHERE user_course.OPENID = :OPENID";
+        String sqlStr = "SELECT user_course.*,course_introduction.COURSE_TITLE FROM user_course JOIN course_introduction ON user_course.COURSE_TYPE = course_introduction.COURSE_TYPE WHERE user_course.OPENID = :OPENID";
         Map paraMap = new HashMap();
         paraMap.put("OPENID", openId);
         List<UserCourseDomain> result = namedParameterJdbcTemplate.query(sqlStr,paraMap,new BeanPropertyRowMapper<>(UserCourseDomain.class));
@@ -50,5 +50,13 @@ public class UserInfoDao {
         paraMap.put("OPENID",openId);
         String insertSql = "INSERT INTO user_bonus (OPENID) VALUES (:OPENID)";
         namedParameterJdbcTemplate.update(insertSql,paraMap);
+    }
+
+    public List<UserInfoDomain> getUserInfoByMemberId(String memberId){
+        String sqlStr = "SELECT * FROM user_info WHERE MEMBER_ID=:MEMBER_ID";
+        Map paraMap = new HashMap();
+        paraMap.put("MEMBER_ID", memberId);
+        List<UserInfoDomain> result = namedParameterJdbcTemplate.query(sqlStr,paraMap,new BeanPropertyRowMapper<>(UserInfoDomain.class));
+        return result;
     }
 }
