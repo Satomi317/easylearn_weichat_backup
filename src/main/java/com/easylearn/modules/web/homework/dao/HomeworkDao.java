@@ -31,7 +31,12 @@ public class HomeworkDao {
     public List<HomeworkDomain> getUserHomework(String openId){
         Map paraMap = new HashMap();
         paraMap.put("OPENID",openId);
-        String querySql = "SELECT * FROM user_homework WHERE OPENID=:OPENID ORDER BY TIMETAMP DESC";
+        String querySql =   "SELECT user_homework.*,course_chapter.CHAPTER_TITLE " +
+                            "FROM user_homework " +
+                            "JOIN course_chapter " +
+                            "ON user_homework.CHAPTERNUM = course_chapter.CHAPTER_NUM " +
+                            "WHERE OPENID=:OPENID ORDER BY TIMETAMP DESC ";
+
         List<HomeworkDomain> result = namedParameterJdbcTemplate.query(querySql,paraMap,new BeanPropertyRowMapper<>(HomeworkDomain.class));
         return result;
     }

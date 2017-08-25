@@ -8,6 +8,15 @@ public class HomeworkDomain {
     private String openId;
     private String timetamp;
     private long chapterNum;
+    private String chapterTitle;
+
+    public String getChapterTitle() {
+        return chapterTitle;
+    }
+
+    public void setChapterTitle(String chapterTitle) {
+        this.chapterTitle = chapterTitle;
+    }
 
     public String getLocalId() {
         return localId;

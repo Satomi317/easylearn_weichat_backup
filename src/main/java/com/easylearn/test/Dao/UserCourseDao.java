@@ -62,7 +62,7 @@ public class UserCourseDao {
      * @return
      */
     public List<UserCourseDomain> getAllDemoUser(){
-        String querySql = "SELECT * FROM user_course WHERE COURSE_TYPE = 4 AND PUSH_NUMBER < 4";
+        String querySql = "SELECT * FROM user_course WHERE COURSE_TYPE = 4 AND PUSH_NUMBER < 6";
         Map paraMap = new HashMap();
         List<UserCourseDomain> result = namedParameterJdbcTemplate.query(querySql,paraMap,new BeanPropertyRowMapper<>(UserCourseDomain.class));
         return result;
