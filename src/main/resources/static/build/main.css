@@ -24997,6 +24997,10 @@ question .gotoRight {
   font-size: 3.2em !important;
 }
 
+question .swiper-pagination-bullet-active {
+  background: #75d29d !important;
+}
+
 testResult h1, testResult h2 {
   text-align: center;
 }
@@ -25074,7 +25078,7 @@ bonus ion-grid {
 
 bonus ion-grid .dailyIcon {
   text-align: center;
-  background: #60aaff;
+  background: #75d29d;
   width: 6rem;
   height: 6rem;
   border-radius: 2.5rem;
@@ -25110,6 +25114,24 @@ bonus ion-list ion-icon {
 
 bonus ion-list .rightBonus {
   float: right;
+}
+
+bonus .earnTitle {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+bonus .earnTitle h3 {
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 homework .scroll-content {
