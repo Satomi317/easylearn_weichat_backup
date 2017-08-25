@@ -36,6 +36,9 @@ public class CoreService extends MvcComponent{
     @Value("${serverAddress}")
     public String serverAddress;
 
+    @Value(("${customerServiceUrl}"))
+    public String customerServiceUrl;
+
 
     private static String jsapi_ticket = "";
     private static Double jsapi_expires_in = 7200.0;
@@ -105,7 +108,7 @@ public class CoreService extends MvcComponent{
                 String content = requestMap.get("Content");
                 if (!content.isEmpty()) {
                     // 自动回复文本消息
-                     String Content = "欢迎关注说乎,各位亲有使用疑问可以点击学员信息下的客服按钮哦~";
+                     String Content = "欢迎关注说吧,各位亲有使用疑问可以点击学员信息下的客服按钮哦~";
                      TextMessage textMessage = createTextMessage(openId,toUserName,Content);
                      respMessage = MessageUtil.textMessageToXml(textMessage);
                 }
@@ -117,9 +120,17 @@ public class CoreService extends MvcComponent{
                 //订阅事件
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
                     //text message
-                    String textContent = "Hello~亲爱的小伙伴，欢迎加入说乎~请先进行<a href=\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
-                            + "&redirect_uri=http://" + serverAddress
-                            + "/login&response_type=code&scope=snsapi_userinfo&state=pretest#wechat_redirect\">"+"学前测试</a>";
+                    String textContent = "Hello!欢迎来到说吧口语!\n" +
+                            "出国旅游怕迷路？\n" +
+                            "出国购物怕被“坑”？ \n" +
+                            "出国陪读心发怵？  \n" +
+                            "来说吧，出国口语不再怕！\n" +
+                            "说吧口语，为您打通一条英语口语学习的高速公路！\n" +
+                            "两种基础课程，365+真实情景，全面实现从登机出发到返航回国全程英文交流无障碍！\n" +
+                            "我们为您准备了“<a href=\"https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+ "&redirect_uri=http://" + serverAddress
+                                                        + "/login&response_type=code&scope=snsapi_userinfo&state=pretest#wechat_redirect\">"+"学前测试</a>”，实现精准定位，精准选课。\n" +
+                            "或者您可以点击“关于说吧”—“课程介绍”，查看适合您的课程!\n" +
+                            "祝您学习愉快！";
                     TextSubContent content = new TextSubContent();
                     content.setContent(textContent);
                     TextSubscribe textSubscribe = new TextSubscribe();
@@ -153,7 +164,7 @@ public class CoreService extends MvcComponent{
 //                        String content = "亲，有问题请邮件说乎客服：liuyiming@shuobaba.com";
 //                        TextMessage textMessage = createTextMessage(openId,toUserName,content);
 //                        respMessage = MessageUtil.textMessageToXml(textMessage);
-                        NewsMessage customerNews = createNewsMessage(openId,toUserName,"http://justtalk.oss-cn-shanghai.aliyuncs.com/image/kefu.jpg","客服信息","http://justtalk.oss-cn-shanghai.aliyuncs.com/image/%E8%AF%B4%E5%90%A7%E5%AE%A2%E6%9C%8D%E5%9B%9E%E5%A4%8D.png","点击详情查看常见问题及答案哟~");
+                        NewsMessage customerNews = createNewsMessage(openId,toUserName,"http://justtalk.oss-cn-shanghai.aliyuncs.com/image/kefu.jpg","客服信息",customerServiceUrl,"点击详情查看常见问题及答案哟~");
                         respMessage = MessageUtil.newsMessageToXml(customerNews);
                     }
                 }

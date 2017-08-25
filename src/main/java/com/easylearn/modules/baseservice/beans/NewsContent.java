@@ -6,13 +6,13 @@ import java.util.List;
  * Created by yuisama on 2017/7/5.
  */
 public class NewsContent {
-   private List<Article> articles;
+   private List<CustomerArticle> articles;
 
-    public List<Article> getArticles() {
+    public List<CustomerArticle> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<Article> articles) {
+    public void setArticles(List<CustomerArticle> articles) {
         this.articles = articles;
     }
 }

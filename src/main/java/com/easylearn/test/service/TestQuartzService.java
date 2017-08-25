@@ -1,7 +1,7 @@
 package com.easylearn.test.service;
 
 import com.easylearn.comm.MvcComponent;
-import com.easylearn.modules.baseservice.beans.Article;
+import com.easylearn.modules.baseservice.beans.CustomerArticle;
 import com.easylearn.modules.baseservice.beans.NewsContent;
 import com.easylearn.modules.baseservice.service.CoreService;
 import com.easylearn.test.Dao.CourseChapterDao;
@@ -26,6 +26,10 @@ public class TestQuartzService extends MvcComponent{
 
     @Value("${serverAddress}")
     public String serverAddress;
+
+    //调用客服接口推送图文消息图片地址
+    @Value("${pushPictureUrl}")
+    public String pushPicUrl;
 
     @Autowired
     private CoreService coreService;
@@ -69,9 +73,9 @@ public class TestQuartzService extends MvcComponent{
         for(UserCourseDomain user:zeroBaseUsers){
             //推送的图文消息
             NewsContent newsContent = new NewsContent();
-            List<Article> articles = new ArrayList<>();
+            List<CustomerArticle> articles = new ArrayList<>();
 
-            Article article = createArticle(user);
+            CustomerArticle article = createArticle(user);
 
             articles.add(article);
             newsContent.setArticles(articles);
@@ -85,9 +89,9 @@ public class TestQuartzService extends MvcComponent{
         for(UserCourseDomain user:tinyBaseUsers){
             //推送的图文消息
             NewsContent newsContent = new NewsContent();
-            List<Article> articles = new ArrayList<>();
+            List<CustomerArticle> articles = new ArrayList<>();
 
-            Article article = createArticle(user);
+            CustomerArticle article = createArticle(user);
 
             articles.add(article);
             newsContent.setArticles(articles);
@@ -101,9 +105,9 @@ public class TestQuartzService extends MvcComponent{
         for(UserCourseDomain user:demoUsers){
             //推送的图文消息
             NewsContent newsContent = new NewsContent();
-            List<Article> articles = new ArrayList<>();
+            List<CustomerArticle> articles = new ArrayList<>();
 
-            Article article = createArticle(user);
+            CustomerArticle article = createArticle(user);
 
             articles.add(article);
             newsContent.setArticles(articles);
@@ -119,8 +123,8 @@ public class TestQuartzService extends MvcComponent{
      * 生产图文消息
      * @return
      */
-    public Article createArticle(UserCourseDomain userInfo){
-        Article article = new Article();
+    public CustomerArticle createArticle(UserCourseDomain userInfo){
+        CustomerArticle article = new CustomerArticle();
 
         //推送次数
         int pushNumber = userInfo.getPushNumber();
@@ -142,12 +146,12 @@ public class TestQuartzService extends MvcComponent{
         List<CourseChapterDomain> courseInfo = courseChapterDao.getPushCourse(pushNumber,courseNumber);
         if(courseInfo.size() != 0){
             String url = "http://" + serverAddress + "/#/chapter/" + courseInfo.get(0).getChapterNum() + "/openId/" + userInfo.getOpenId();
-            article.setPicurl("http://justtalk.oss-cn-shanghai.aliyuncs.com/image/%E7%9F%B3%E5%8E%9F.jpg");
+            article.setPicurl(pushPicUrl);
             article.setUrl(url);
             article.setTitle(courseInfo.get(0).getChapterTitle());
             article.setDescription("快来点击学习今天的课程吧！");
         }else{
-            article.setPicurl("http://justtalk.oss-cn-shanghai.aliyuncs.com/image/%E7%9F%B3%E5%8E%9F.jpg");
+            article.setPicurl(pushPicUrl);
             article.setTitle("今日课程");
             article.setDescription("暂时没找到你今天要学的课程，点击菜单进去看看吧。");
         }
