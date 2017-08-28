@@ -24893,6 +24893,10 @@ introduction #buyBtn {
   width: 90%;
 }
 
+introduction .wrap {
+  margin-bottom: 100px;
+}
+
 buy .scroll-content {
   background-color: #f8f8f8;
   display: -webkit-flex;
@@ -25028,7 +25032,8 @@ testResult ion-col {
 }
 
 testWelcome .scroll-content {
-  background-color: #f8f8f8;
+  background-color: #e5f3d0;
+  color: #8cb252;
 }
 
 testWelcome ion-row {
@@ -25037,6 +25042,31 @@ testWelcome ion-row {
 
 testWelcome ion-grid, testWelcome ion-row {
   height: 100%;
+}
+
+testWelcome ion-grid p, testWelcome ion-row p {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 40px;
+}
+
+testWelcome ion-grid h3, testWelcome ion-row h3 {
+  margin-bottom: 50px;
+}
+
+testWelcome .circle {
+  width: 160px;
+  height: 160px;
+  border-radius: 80px;
+  border: 7px solid #d2dfbf;
+  border-left: 8px solid #e5f3d0;
+  margin: 0 auto;
+  padding-top: 70px;
+}
+
+testWelcome .circle p {
+  font-size: 20px;
+  line-height: 8px;
 }
 
 bonus .scroll-content {
