@@ -146,7 +146,7 @@ public class TestQuartzService extends MvcComponent{
         List<CourseChapterDomain> courseInfo = courseChapterDao.getPushCourse(pushNumber,courseNumber);
         if(courseInfo.size() != 0){
             String url = "http://" + serverAddress + "/#/chapter/" + courseInfo.get(0).getChapterNum() + "/openId/" + userInfo.getOpenId();
-            article.setPicurl(pushPicUrl);
+            article.setPicurl(courseInfo.get(0).getCourseImg());
             article.setUrl(url);
             article.setTitle(courseInfo.get(0).getChapterTitle());
             article.setDescription("快来点击学习今天的课程吧！");

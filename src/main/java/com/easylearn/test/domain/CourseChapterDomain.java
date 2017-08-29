@@ -8,6 +8,7 @@ public class CourseChapterDomain {
     private int chapterNum;
     private String chapterTitle;
     private int courseNum;
+    private String courseImg;
 
     public int getCourseNum() {
         return courseNum;
@@ -33,4 +34,11 @@ public class CourseChapterDomain {
         this.chapterTitle = chapterTitle;
     }
 
+    public String getCourseImg() {
+        return courseImg;
+    }
+
+    public void setCourseImg(String courseImg) {
+        this.courseImg = courseImg;
+    }
 }
