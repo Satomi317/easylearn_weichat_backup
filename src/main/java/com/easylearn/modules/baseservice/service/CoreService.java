@@ -120,17 +120,31 @@ public class CoreService extends MvcComponent{
                 //订阅事件
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
                     //text message
-                    String textContent = "Hello!欢迎来到说吧口语!\n" +
-                            "出国旅游怕迷路？\n" +
-                            "出国购物怕被“坑”？ \n" +
-                            "出国陪读心发怵？  \n" +
-                            "来说吧，出国口语不再怕！\n" +
-                            "说吧口语，为您打通一条英语口语学习的高速公路！\n" +
-                            "两种基础课程，365+真实情景，全面实现从登机出发到返航回国全程英文交流无障碍！\n" +
-                            "我们为您准备了“<a href=\"https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+ "&redirect_uri=http://" + serverAddress
-                                                        + "/login&response_type=code&scope=snsapi_userinfo&state=pretest#wechat_redirect\">"+"学前测试</a>”，实现精准定位，精准选课。\n" +
-                            "或者您可以点击“关于说吧”—“课程介绍”，查看适合您的课程!\n" +
-                            "祝您学习愉快！";
+                    String textContent = "Hello!欢迎来到说吧口语!\n\n" +
+                            "如果您曾有过下面的困扰:\n"+
+                            "出国旅游，因语言不通只能报团？\n" +
+                            "境外购物，因语言不通怕被人坑？ \n" +
+                            "出国陪读，因语言不通反成负担？\n" +
+                            "外派机会，因语言不通只好放弃？\n\n"+
+                            "没关系！从今天开始关注说吧，\n" +
+                            "让学英语成为每天期待的事！\n\n"+
+                            "•点击【关于说吧】-【<a href=\"https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+ "&redirect_uri=http://" + serverAddress +
+                            "                                                        + /login&response_type=code&scope=snsapi_userinfo&state=pretest#wechat_redirect\">"+"学前测试</a>】助您精准选课\n"+
+                            "•点击【关于说吧】-【课程介绍】查看适合您的课程简介\n"+
+                            "•点击【快速听课】开始立刻听课或者购买课程\n"+
+                            "•点击【学员中心】查询我的作业和学习进程\n\n"+
+                            "请您期待「每晚八点」向您推送的六节试听课程\n"+
+                            "记得「置顶公众号」随时复习噢！\n\n"+
+                            "祝您在说吧口语学习愉快~";
+//
+//
+//
+//                            "说吧口语，为您打通一条英语口语学习的高速公路！\n" +
+//                            "两种基础课程，365+真实情景，全面实现从登机出发到返航回国全程英文交流无障碍！\n" +
+//                            "我们为您准备了“<a href=\"https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+ "&redirect_uri=http://" + serverAddress
+//                                                        + "/login&response_type=code&scope=snsapi_userinfo&state=pretest#wechat_redirect\">"+"学前测试</a>”，实现精准定位，精准选课。\n" +
+//                            "或者您可以点击“关于说吧”—“课程介绍”，查看适合您的课程!\n" +
+//                            "祝您学习愉快！";
                     TextSubContent content = new TextSubContent();
                     content.setContent(textContent);
                     TextSubscribe textSubscribe = new TextSubscribe();
