@@ -25032,7 +25032,7 @@ testResult ion-col {
 }
 
 testWelcome .scroll-content {
-  background-color: #e5f3d0;
+  background-color: #e8f293;
   color: #8cb252;
 }
 
@@ -25045,7 +25045,7 @@ testWelcome ion-grid, testWelcome ion-row {
 }
 
 testWelcome ion-grid p, testWelcome ion-row p {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 500;
   line-height: 40px;
 }
@@ -25067,6 +25067,16 @@ testWelcome .circle {
 testWelcome .circle p {
   font-size: 20px;
   line-height: 8px;
+}
+
+testWelcome .logo {
+  width: 110px;
+  height: 110px;
+  border-radius: 55px;
+  margin: 0 auto;
+  background-image: url("../assets/img/getheadimg.jpg");
+  background-size: cover;
+  background-position: center center;
 }
 
 bonus .scroll-content {

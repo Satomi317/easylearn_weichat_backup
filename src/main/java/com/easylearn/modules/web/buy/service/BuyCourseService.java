@@ -109,7 +109,7 @@ public class BuyCourseService extends MvcComponent {
             logger.info("inviterOpenId="+inviterOpenId);
             //邀请者openId不能是是购课者自己
             if(inviterOpenId != openId){
-                exchangeDao.updateInviterBonus(inviterOpenId);
+                exchangeDao.updateInviterBonus(inviterOpenId,openId);
             }else{
                 logger.error("邀请码对应用户不能为自己");
             }

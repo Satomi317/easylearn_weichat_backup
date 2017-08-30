@@ -57,10 +57,11 @@ public class ExchangeDao {
      * 更新邀请者的积分
      * @param openId
      */
-    public void updateInviterBonus(String openId){
+    public void updateInviterBonus(String openId, String myOpenId){
         Map paraMap = new HashMap();
         paraMap.put("OPENID",openId);
-        String updateSql = "UPDATE user_bonus SET BONUS=BONUS + 300 WHERE OPENID=:OPENID";
+        paraMap.put("MYOPENID",myOpenId);
+        String updateSql = "UPDATE user_bonus SET BONUS=BONUS + 1000 WHERE OPENID=:OPENID OR OPENID=:MYOPENID";
         namedParameterJdbcTemplate.update(updateSql,paraMap);
     }
 }

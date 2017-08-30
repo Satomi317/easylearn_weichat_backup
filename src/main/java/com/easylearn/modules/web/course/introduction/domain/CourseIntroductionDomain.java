@@ -12,6 +12,7 @@ public class CourseIntroductionDomain {
     private String courseImg;
     private String courseDescription;
     private String date;
+    private String subImg;
 
     public int getCourseNum() {
         return courseNum;
@@ -75,5 +76,13 @@ public class CourseIntroductionDomain {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getSubImg() {
+        return subImg;
+    }
+
+    public void setSubImg(String subImg) {
+        this.subImg = subImg;
     }
 }
