@@ -128,8 +128,7 @@ public class CoreService extends MvcComponent{
                             "外派机会，因语言不通只好放弃？\n\n"+
                             "没关系！从今天开始关注说吧，\n" +
                             "让学英语成为每天期待的事！\n\n"+
-                            "•点击【关于说吧】-【<a href=\"https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+ "&redirect_uri=http://" + serverAddress +
-                            "                                                        + /login&response_type=code&scope=snsapi_userinfo&state=pretest#wechat_redirect\">"+"学前测试</a>】助您精准选课\n"+
+                            "•点击【关于说吧】-【<a href=\"https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+ "&redirect_uri=http://" + serverAddress +"/login&response_type=code&scope=snsapi_userinfo&state=pretest#wechat_redirect\">"+"学前测试</a>】助您精准选课\n"+
                             "•点击【关于说吧】-【课程介绍】查看适合您的课程简介\n"+
                             "•点击【快速听课】开始立刻听课或者购买课程\n"+
                             "•点击【学员中心】查询我的作业和学习进程\n\n"+
