@@ -35,11 +35,10 @@ public class CoursePartMgtService extends MvcComponent {
     public boolean addNewParts(List<CoursePartDomain> addNewPartsParm){
         for (CoursePartDomain coursePartDomain : addNewPartsParm){
             //获取要插入数据库的信息
-            int partNum = coursePartDomain.getPartNum() ;
             String partTitle = coursePartDomain.getPartTitle() ;
             int chapterNum = coursePartDomain.getChapterNum() ;
             //向数据库插入part信息
-            if (coursePartMgtDao.addNewParts(partNum,partTitle,chapterNum)){
+            if (coursePartMgtDao.addNewParts(partTitle,chapterNum)){
                 logger.info("已向数据库插入一条新的part记录");
             }else {
                 logger.error("插入数据失败,service方法终止");

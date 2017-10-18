@@ -33,13 +33,12 @@ public class CoursePartMgtDao extends MvcComponent{
     /**
      * 根据chapterNum新增coursePart
      */
-    public boolean addNewParts(int partNum, String partTitle, int chapterNum){
+    public boolean addNewParts(String partTitle, int chapterNum){
         logger.info("进入addNewPartDao层方法");
         Map paraMap = new HashMap();
-        paraMap.put("PART_NUM",partNum) ;
         paraMap.put("PART_TITLE",partTitle) ;
         paraMap.put("CHAPTER_NUM",chapterNum) ;
-        String addNewPartSql = "INSERT INTO course_part VALUES (:PART_NUM,:PART_TITLE,:CHAPTER_NUM)" ;
+        String addNewPartSql = "INSERT INTO course_part (PART_TITLE, CHAPTER_NUM) VALUES (:PART_TITLE,:CHAPTER_NUM)" ;
         try{
             namedParameterJdbcTemplate.update(addNewPartSql,paraMap) ;
             logger.info("addNewPartDao层方法执行成功，返回success");
