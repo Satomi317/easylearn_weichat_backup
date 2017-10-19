@@ -4,6 +4,7 @@ import com.easylearn.comm.MvcComponent;
 import com.easylearn.mgt.domain.CourseFileDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,8 @@ import java.util.Map;
 public class CourseFileMgtDao extends MvcComponent{
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate ;
-
+    @Autowired
+    private JdbcTemplate jdbcTemplate ;
     /**
      * 根据partNum查询courseFile信息
      */
@@ -47,5 +49,15 @@ public class CourseFileMgtDao extends MvcComponent{
             logger.error("DAO层新增文件信息失败");
             return false ;
         }
+    }
+
+    /**
+     * 查询当前fileNum最大值
+     */
+    public int quertMaxFileNum(){
+        logger.info("查询FileNum最大值");
+        String queryMaxFileNumSql = "SELECT COUNT(FILE_NUM) FROM course_file" ;
+        int maxFileDomain = jdbcTemplate.queryForObject(queryMaxFileNumSql,Integer.class);
+        return maxFileDomain ;
     }
 }

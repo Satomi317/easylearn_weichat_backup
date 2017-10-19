@@ -39,7 +39,7 @@ public class CourseFileMgtController extends MvcComponent {
         List<CourseFileDomain> paraList = Arrays.asList(courseFileDomainArray) ;
         if (courseFileMgtService.addNewFiles(paraList)){
             logger.info("插入多条File信息成功，Controller方法正常返回");
-            return "Success" ;
+            return "" + courseFileMgtService.queryMaxFileNum();
         }else {
             logger.error("插入文件信息失败");
             return "false" ;

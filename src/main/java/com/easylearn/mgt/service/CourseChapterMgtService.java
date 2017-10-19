@@ -26,8 +26,15 @@ public class CourseChapterMgtService extends MvcComponent{
     /**
      * 新增章节
      */
-    public void addNewChapter(int chapterNum, String chapterTitle, int courseNum, String courseImg){
+    public void addNewChapter(String chapterTitle, int courseNum, String courseImg){
         logger.info("新增章节开始..") ;
-        courseChapterMgtDao.addNewChapter(chapterNum,chapterTitle,courseNum,courseImg) ;
+        courseChapterMgtDao.addNewChapter(chapterTitle,courseNum,courseImg) ;
+    }
+
+    /**
+     * 查询当前fileNum最大值
+     */
+    public int queryMaxChapterNum(){
+        return courseChapterMgtDao.quertMaxChapterNum();
     }
 }

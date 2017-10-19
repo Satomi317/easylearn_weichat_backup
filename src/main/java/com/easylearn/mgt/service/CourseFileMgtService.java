@@ -43,4 +43,11 @@ public class CourseFileMgtService extends MvcComponent{
         }
         return true ;
     }
+
+    /**
+     * 查询当前fileNum最大值
+     */
+    public int queryMaxFileNum(){
+        return courseFileMgtDao.quertMaxFileNum();
+    }
 }

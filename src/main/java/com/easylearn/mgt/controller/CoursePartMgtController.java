@@ -49,7 +49,7 @@ public class CoursePartMgtController extends MvcComponent{
         List<CoursePartDomain> paraList = Arrays.asList(coursePartDomainArray) ;
         if (coursePartMgtService.addNewParts(paraList)){
             logger.info("插入多条part信息成功") ;
-            return "success" ;
+            return "" + coursePartMgtService.queryMaxPartNum();
         }
         else {
             logger.error("插入part信息失败") ;

@@ -29,14 +29,14 @@ public class CourseChapterMgtController extends MvcComponent{
     @ResponseBody
     public String addNewChapter(HttpServletRequest request){
         logger.info("从请求中获取新增章节信息");
-        int chapterNum = Integer.parseInt(request.getParameter("chapterNum")) ;
+//        int chapterNum = Integer.parseInt(request.getParameter("chapterNum")) ;
         String chapterTitle = request.getParameter("chapterTitle") ;
         int courseNum = Integer.parseInt(request.getParameter("courseNum")) ;
         String courseImg = request.getParameter("courseImg") ;
         try{
-            courseChapterMgtService.addNewChapter(chapterNum,chapterTitle,courseNum,courseImg);
+            courseChapterMgtService.addNewChapter(chapterTitle,courseNum,courseImg);
             logger.info("新增章节成功");
-            return "Success" ;
+            return "" + courseChapterMgtService.queryMaxChapterNum() ;
         }catch (Exception e){
             logger.error("新增章节失败，请检查chapterNum是否重复" +e);
             return "新增章节失败，请检查chapterNum是否重复" ;
