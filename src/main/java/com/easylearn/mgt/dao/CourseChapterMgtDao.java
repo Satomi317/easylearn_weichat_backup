@@ -44,7 +44,7 @@ public class CourseChapterMgtDao  extends MvcComponent {
      */
     public int quertMaxChapterNum(){
         logger.info("查询ChapterNum最大值");
-        String queryMaxChapterNumSql = "SELECT COUNT(CHAPTER_NUM) FROM course_chapter";
+        String queryMaxChapterNumSql = "SELECT MAX(CHAPTER_NUM) FROM course_chapter";
         int maxChapterDomain = jdbcTemplate.queryForObject(queryMaxChapterNumSql,Integer.class);
         return maxChapterDomain ;
     }

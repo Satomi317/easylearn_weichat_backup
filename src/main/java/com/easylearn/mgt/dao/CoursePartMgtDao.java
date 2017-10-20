@@ -54,7 +54,7 @@ public class CoursePartMgtDao extends MvcComponent{
      */
     public int quertMaxPartNum(){
         logger.info("查询partNum最大值");
-        String queryMaxPartNumSql = "SELECT COUNT(PART_NUM) FROM course_part" ;
+        String queryMaxPartNumSql = "SELECT MAX(PART_NUM) FROM course_part" ;
         int maxPartDomain = jdbcTemplate.queryForObject(queryMaxPartNumSql,Integer.class);
         return maxPartDomain ;
     }

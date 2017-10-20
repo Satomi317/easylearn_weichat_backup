@@ -56,7 +56,7 @@ public class CourseFileMgtDao extends MvcComponent{
      */
     public int quertMaxFileNum(){
         logger.info("查询FileNum最大值");
-        String queryMaxFileNumSql = "SELECT COUNT(FILE_NUM) FROM course_file" ;
+        String queryMaxFileNumSql = "SELECT MAX(FILE_NUM) FROM course_file" ;
         int maxFileDomain = jdbcTemplate.queryForObject(queryMaxFileNumSql,Integer.class);
         return maxFileDomain ;
     }
